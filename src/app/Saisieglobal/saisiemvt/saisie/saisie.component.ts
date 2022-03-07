@@ -398,10 +398,7 @@ onReset(){
   console.log(this.wmois);
     this.getmvtdetailfolio();
     this.displayfolio = false;
-    //this.resultJOURNAL=[{jl_code:this.wjourn, jl_design :e.data.client }]
-
-
-  }
+     }
   selectrowchoose2(e){
 
     this.angForm.setValue({ jour: this.angForm.value.jour,
