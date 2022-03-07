@@ -397,6 +397,7 @@ onReset(){
   this.wmois = e.data.mv_mmc;
   console.log(this.wmois);
     this.getmvtdetailfolio();
+    this.displayfolio = false;
     //this.resultJOURNAL=[{jl_code:this.wjourn, jl_design :e.data.client }]
 
 
