@@ -1,0 +1,33 @@
+<!--
+<div class="mybutton">
+  <button mat-icon-button [matMenuTriggerFor]="menu"  aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button *ngFor="let item of menuItems" mat-menu-item  [routerLink]="'/'+item.sousRoute">
+      <mat-icon>{{item.sousIcon}}</mat-icon>
+      <span>{{item.sousMenuname}}</span>
+    </button>
+
+  </mat-menu>
+
+-->
+<div class="sidebar">
+  <div *ngFor="let item of menuItems">
+  <button mat-menu-item  [routerLink]="'/'+item.sousRoute" class="boton">
+      <span>{{item.sousMenuname}}</span>
+    </button>
+  </div>
+ 
+  
+</div>
+<!--
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of menuItems" >
+      <button mat-menu-item  [routerLink]="'/'+item.sousRoute">
+        <span>{{item.sousMenuname}}</span>
+      </button>
+    </li>
+    
+  </ul>
+  -->

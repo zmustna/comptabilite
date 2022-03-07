@@ -1,0 +1,255 @@
+<ngx-spinner></ngx-spinner>
+<div id="viewport">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <header>
+      <a href="#">Societe</a>
+    </header>
+    <ul class="nav">
+      <app-sousmenu></app-sousmenu>
+    </ul>
+  </div>
+  <!-- Content -->
+  <div id="content">
+    <div class="container-fluid">
+
+
+      <div class="row">
+
+          <div class="myfont col-md-4">
+              <p-table #dt [columns]="cols" [value]="result" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="320px"  class="myfont" selectionMode="single" [(selection)]="selectedCar1" dataKey="companyId" (onRowSelect)="selectrow($event)" (onRowUnselect)="onRowUnselect($event)">
+                  <ng-template pTemplate="caption">
+                      <div style="text-align: left">
+                          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                          <input type="text" pInputText size="25" placeholder="Rechercher & Selectionner" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                      <tr>
+                          <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                              {{col.header}}
+                              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                          </th>
+                      </tr>
+
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr [pSelectableRow]="rowData">
+                          <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                            <span *ngIf="col.header =='Company Name'">{{rowData[col.field]}}</span>
+                            <span *ngIf="col.header =='Enable'">{{rowData[col.field] === 0 ? 'False' : 'True' }}</span>
+
+                          </td>
+                      </tr>
+                  </ng-template>
+
+              </p-table>
+          </div>
+          <div class=" col-md-8">
+            <form class="row g-3" [formGroup]="angForm" novalidate>
+             <div class="col-md-6">
+               <label for="firstName" class="form-label">Raison Social</label>
+               <input type="text" #namex class="form-control" formControlName="raisonsocial" required>
+             </div>
+             <div class="col-md-2">
+               <label for="lastName" class="form-label">F.Juridique</label>
+               <input type="text" class="form-control"  formControlName="fjuridique"  required>
+             </div>
+             <div class="col-md-2">
+               <label for="lastName" class="form-label">Abréviation</label>
+               <input type="text" class="form-control"  formControlName="abr"  required>
+             </div>
+             <div class="col-md-2">
+
+            </div>
+              <div class="col-md-2">
+              <label for="firstName" class="form-label">R.C</label>
+              <input type="text" class="form-control" formControlName="rc" >
+            </div>
+            <div class="col-md-2">
+              <label for="lastName" class="form-label">Patente</label>
+              <input type="text" class="form-control" formControlName="patente">
+            </div>
+            <div class="col-md-2">
+              <label for="lastName" class="form-label">CNSS</label>
+              <input type="text" class="form-control"  formControlName="cnss">
+            </div>
+            <div class="col-md-2">
+              <label for="lastName" class="form-label">I.F</label>
+              <input type="text" class="form-control"  formControlName="iff">
+            </div>
+            <div class="col-md-2">
+              <label for="lastName" class="form-label">I.C.E</label>
+              <input type="text" class="form-control"  formControlName="ice">
+            </div>
+            <div class="col-md-2">
+
+            </div>
+             <div class="col-md-6">
+               <label for="lastName" class="form-label">Adresse</label>
+               <input type="text" class="form-control"  formControlName="adresse"  required>
+             </div>
+             <div class="col-md-2">
+              <label for="lastName" class="form-label">Code Postal</label>
+              <input type="text" class="form-control"  formControlName="fax"  required>
+            </div>
+             <div class="col-md-2">
+               <label for="lastName" class="form-label">Ville</label>
+               <input type="text" class="form-control"  formControlName="ville"  required>
+             </div>
+             <div class="col-md-2">
+               <label for="lastName" class="form-label">Pays</label>
+               <input type="text" class="form-control"  formControlName="pays"  required>
+             </div>
+
+            <div class="col-md-2">
+              <label for="lastName" class="form-label">Téléphone</label>
+              <input type="text" class="form-control"  formControlName="tel"  required>
+            </div>
+             <div class="col-md-2">
+               <label for="lastName" class="form-label">Fax</label>
+               <input type="text" class="form-control"  formControlName="fax"  required>
+             </div>
+             <div class="col-md-8">
+
+            </div>
+           <div class="col-md-6">
+            <div class="row mt-3 ml-2">
+                <div class="mycollor col-md-1">
+
+                </div>
+                <div class="mycollor col-md-12">
+
+                  <label for="dreamweaver">&nbsp;&nbsp;Régime TVA</label>
+                </div>
+                <div class="row col-md-12">
+                  <label class = "radio-inline">
+                    <input type = "radio"  formControlName="regime" value = "Debit"> &nbsp;&nbsp;Debit
+                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="row col-md-12">
+                  <label class = "radio-inline">
+                    <input type = "radio"  formControlName="regime" value = "Encaissement"> &nbsp;&nbsp;Encaissement
+                </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+
+           </div>
+           <div class="col-md-6">
+
+               <div class="row mt-3 ml-2">
+                    <div class="mycollor col-md-1">
+
+                    </div>
+                    <div class="mycollor col-md-12">
+
+                      <label for="dreamweaver">&nbsp;&nbsp;Modéle TVA</label>
+                    </div>
+                    <div class="row col-md-12">
+                      <label class = "radio-inline">
+                        <input type = "radio" formControlName="model"  value = "igrs"> IGR Simplifier
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class = "radio-inline">
+                        <input type = "radio" formControlName="model"   value = "igrn"> I.G.R Normal
+                    </label>
+
+                    </div>
+                    <div class="row col-md-12">
+                      <label class = "radio-inline">
+                        <input type = "radio" formControlName="model" value = "iss"> I.S Simplifier
+                    </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class = "radio-inline">
+                        <input type = "radio" formControlName="model"  value = "isn"> I.S Normal
+                    </label>
+
+                    </div>
+               </div>
+
+          </div>
+
+     <div class="row mt-2">
+      <div class="col-sm-1"></div>
+      <div class="form-group">
+         <button type="button" [disabled]="angForm.pristine || angForm.invalid" class="ml-1 pl-3 btn btn-success" (click)="onSubmit()"> Sauvegarder   </button>
+          <button type="button" [disabled]="codeid === 0" class="ml-1  pl-3 btn btn-danger" data-toggle="modal" (click)="onDelete()" data-target="#myModal"> Supprimer   </button>
+          <button type="button" class="ml-1  pl-3 btn btn-info" (click)="imprimer()"> Editer   </button>
+
+      </div>
+  </div>
+
+           </form>
+          </div>
+
+      </div>
+      <div  class="row mt-2">
+        <div class="myfont col-md-12">
+          <p-table #dt5 [columns]="cols0" [value]="resultsoc" styleClass="prime-slider-override p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedCar1" dataKey="societeId" (onRowSelect)="selectrow($event)" (onRowUnselect)="onRowUnselect($event)">
+              <ng-template pTemplate="caption">
+                  <div style="text-align: left">
+                      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                      <input type="text" pInputText size="25" placeholder="Rechercher & Selectionner" (input)="dt5.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                   </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                      </th>
+                  </tr>
+
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr [pSelectableRow]="rowData">
+                      <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                        <span *ngIf="col.header =='Company Name'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='F.Juridique'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='R.C'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='Patente'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='CNSS'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='I.C.E'">{{rowData[col.field]}}</span>
+                      </td>
+                  </tr>
+
+              </ng-template>
+
+          </p-table>
+      </div>
+      </div>
+
+      <!--<p>Form value: {{ angForm.value | json }}</p>
+      <p>Form status: {{ angForm.status | json }}</p>-->
+  </div>
+
+  </div>
+
+  <!--<p>Form value: {{ angForm.value | json }}</p>
+  <p>Form status: {{ angForm.status | json }}</p>-->
+</div>
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  Are you sure you want to delete ?
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger mr-auto" (click)="deleteid()" data-dismiss="modal">Delete</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+

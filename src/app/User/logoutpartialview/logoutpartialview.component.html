@@ -1,0 +1,9 @@
+<button mat-button [matMenuTriggerFor]="Updatepassword" style="color: white;">
+  {{userName}}
+</button>
+  <mat-menu #Updatepassword="matMenu">
+    <a mat-menu-item routerLink="/changepassword">Change Password</a>
+  </mat-menu>&nbsp;
+  <a (click)="Logout()" mat-raised-button color="default">
+    Quitter
+  </a>

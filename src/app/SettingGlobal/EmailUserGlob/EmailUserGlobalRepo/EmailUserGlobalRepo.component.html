@@ -1,0 +1,127 @@
+<ngx-spinner></ngx-spinner>
+<div *ngIf="loading===true" class="float-right bg-warning" style="margin-top:-5%">
+    <div class="row">
+        <div class="col-3">
+            <div class="fa-animation">
+                <i class="ml-4 mt-4 fa fa-cog fa-lg fa-spin"></i>
+
+
+            </div>
+        </div>
+        <div class="col-12" style="margin-top:-15%;margin-left:25% !important">
+            <strong> Please Wait</strong>
+        </div>
+    </div>
+</div>
+<div id="viewport">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <header>
+        <a href="#">Admin</a>
+      </header>
+      <ul class="nav">
+        <app-sousmenu></app-sousmenu>
+      </ul>
+    </div>
+    <!-- Content -->
+    <div id="content">
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="myfont col-4">
+            <span class="foruser">{{username}}</span>
+          </div>
+          <div>
+            <form [formGroup]="angForm" novalidate>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="form-group">
+                          <label for="name">Name:</label>
+                          <input #namex class="form-control" formControlName="name">
+                      </div>
+                  </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                <div class="form-group">
+                    <button type="button" [disabled]="angForm.pristine || angForm.invalid" class="ml-1 pl-3 btn btn-success" (click)="onSubmit()">  Save   </button>
+                    <button type="button" [disabled]="codeid === 0" class="ml-1  pl-3 btn btn-danger" data-toggle="modal" data-target="#myModal">  Delete   </button>
+                    <button type="button" class="ml-1  pl-3 btn btn-info" (click)="imprimer()">  Preview   </button>
+                </div>
+                </div>
+                </div>
+          </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="myfont col-4">
+              <p-table #dt0 [columns]="cols" [value]="resultSettingap" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedEmail" dataKey="companyGlobalId" (onRowSelect)="selectrow($event)" (onRowUnselect)="onRowUnselect($event)">
+                  <ng-template pTemplate="caption">
+                      <div style="text-align: left">
+                          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                          <input type="text" pInputText size="20" placeholder="Rechercher & Selectionner" (input)="dt0.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                      </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                      <tr>
+                          <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                              {{col.header}}
+                              <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                          </th>
+                      </tr>
+
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr [pSelectableRow]="rowData">
+                          <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                            <span *ngIf="col.header =='Company'">{{rowData[col.field]}}</span>
+                            <span *ngIf="col.header =='Enable'">{{rowData[col.field] === 0 ? 'Inactive' : 'Active' }}</span>
+
+                          </td>
+                      </tr>
+                  </ng-template>
+
+              </p-table>
+          </div>
+
+          <div class="myfont col-4">
+            <p-table #dt [columns]="colsusercompany" [value]="resultCompany" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedEmail" dataKey="emailUserGlobalId" (onRowSelect)="selectrowchoose($event)" (onRowUnselect)="onRowUnselect($event)">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: left">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="20" placeholder="Rechercher & Selectionner" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                          <span *ngIf="col.header =='Email'">{{rowData[col.field]}}</span>
+
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+      </div>
+
+
+        </div>
+    </div>
+
+    <!--<p>Form value: {{ angForm.value | json }}</p>
+    <p>Form status: {{ angForm.status | json }}</p>-->
+</div>

@@ -1,0 +1,21 @@
+<div class="mybutton">
+  <button mat-icon-button [matMenuTriggerFor]="menu"  aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item  (click)="navigateMenu('Item1')">
+      <mat-icon>dialpad</mat-icon>
+      <span>Company Adim</span>
+    </button>
+    <button mat-menu-item  (click)="navigateMenu('Item2')">
+      <mat-icon>notifications_off</mat-icon>
+      <span>Add Email Admin</span>
+    </button>
+    <button mat-menu-item  (click)="navigateMenu('Item3')">
+      <mat-icon>analytics</mat-icon>
+      <span>Add Company To User Admin</span>
+    </button>
+
+
+  </mat-menu>
+  </div>

@@ -1,0 +1,261 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color:#0C1115; }
+.myfont {
+  font-family: "new century schoolbook" !important;
+  font-size: 0.85em !important;
+}
+:host ::ng-deep {
+  .p-datatable-responsive-demo .p-datatable-tbody > tr > td .p-column-title {
+      display: none;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
+
+body {
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+/* Toggle Styles */
+
+#viewport {
+  padding-left: 250px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+}
+.p-datatable-resizable .p-resizable-column {
+  background-clip: padding-box;
+}
+
+#content {
+  width: 100%;
+  position: relative;
+  margin-right: 0;
+  margin-top: 70px;
+}
+
+/* Sidebar Styles */
+
+#sidebar {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+ margin-top: -5px;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #37474F;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#sidebar header {
+  background-color: #263238;
+  font-size: 20px;
+  line-height: 52px;
+  text-align: center;
+}
+
+#sidebar header a {
+  color: #fff;
+  display: block;
+  text-decoration: none;
+}
+
+#sidebar header a:hover {
+  color: #fff;
+}
+
+#sidebar .nav{
+
+}
+
+#sidebar .nav a{
+  background: none;
+  border-bottom: 1px solid #455A64;
+  color: #CFD8DC;
+  font-size: 14px;
+  padding: 16px 24px;
+}
+
+#sidebar .nav a:hover{
+  background: none;
+  color: #ECEFF1;
+}
+
+#sidebar .nav a i{
+  margin-right: 16px;
+}
+mat-toolbar {
+    position: fixed;
+    z-index: 100;
+    width: 100%  !important;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-thead > tr > th {
+  background: green !important;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tbody > tr > td {
+  background: black !important;
+  color: white;
+}
+
+@media screen and (max-width: 40rem) {
+  :host ::ng-deep {
+      .p-datatable {
+          &.p-datatable-responsive-demo {
+              .p-datatable-thead > tr > th,
+              .p-datatable-tfoot > tr > td {
+                  display: none !important;
+              }
+
+              .p-datatable-tbody > tr > td {
+                  text-align: left;
+                  display: block;
+                  width: 100%;
+                  float: left;
+                  clear: left;
+                  border: 0 none;
+
+                  .p-column-title {
+                      padding: .4rem;
+                      min-width: 30%;
+                      display: inline-block;
+                      margin: -.4em 1em -.4em -.4rem;
+                      font-weight: bold;
+                  }
+
+                  &:last-child {
+                      border-bottom: 1px solid var(--surface-d);
+                  }
+              }
+          }
+      }
+  }
+}
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500|Rubik:500,700");
+
+/*----------Main Body Css---------- */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+header{
+  background-color:#4e4e92 !important;
+}
+body{
+  background: #0d1013;
+}
+.primary-Fcolor{
+  color: blueviolet;
+}
+.borderBtm{
+  border-bottom: 4px solid #9b00e8;
+}
+.main-border{
+  border: 4px solid #9b00e8 !important;
+  margin: 0px !important;
+}
+/*----------Header Css---------- */
+.header header{
+  color: blueviolet;
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.sub-header header{
+  color: #d933f9;
+  font-size: 26px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+/*----------Card Css---------- */
+.myCard{
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 10px 40px -10px rgb(0 0 0 / 50%)  ;
+  -moz-box-shadow: 0px 10px 40px -10px rgb(0 0 0 / 50%)  ;
+  box-shadow: 0px 10px 40px -10px rgb(0 0 0 / 50%) ;
+}
+/*----------NavBar Css---------- */
+.navbar-light .navbar-nav .nav-link{
+  color: #9b00e8;
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: 0.3s;
+  letter-spacing: 0.5px;
+}
+.navbar-light .navbar-nav .nav-link.active {
+  color: #b31ae7 !important;
+  font-weight: 700;
+}
+.navbar-light .navbar-nav .nav-link:hover{
+  color: #7511a7 !important;
+}
+.navbar-toggler{
+  color: #9b00e8 !important;
+  border-color: #9b00e8 !important;
+  font-size: 22px;
+}
+.navbar-toggler:focus{
+  outline: none;
+}
+.navbar-collapse{
+  padding-bottom: 12px;
+  padding-top: 10px;
+  padding-left: 25px;
+  margin-left: -12px;
+  margin-top: 10px;
+  border-radius: 6px;
+}
+/*----------Input Form Css---------- */
+.form-group:last-child {
+  margin-bottom: 0px;
+}
+.myInput{
+  width: 100%;
+  border-radius: 4px;
+  padding: 11px;
+  margin: 6px;
+  padding-left: 50px;
+  border: 1px solid #9f0cdc;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: .5px;
+  line-height: inherit;
+  -webkit-box-shadow: 0px 10px 49px -14px rgb(0,0,0,0.7);
+  -moz-box-shadow: 0px 10px 49px -14px rgb(0,0,0,0.7);
+  box-shadow: 0px 10px 49px -14px rgb(0,0,0,0.7);
+}
+.myInput:focus{
+  outline: none;
+}
+.myInput.ng-touched.ng-invalid{
+  border: 1px solid #FF0000 !important;
+}
+.myInput.ng-touched.ng-valid{
+  border: 1px solid #00FF00 !important;
+}
+select#select {
+  color: #685151c7;
+  font-weight: 500;
+}
+select#select option{
+  color: #685151c7;
+  font-weight: 500;
+}
+/*----------Input Form Css---------- */

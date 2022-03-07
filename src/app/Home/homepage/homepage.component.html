@@ -1,0 +1,95 @@
+<body class="mydesign">
+  <ngx-spinner></ngx-spinner>
+  <mat-toolbar class="mycolor">
+    <span class="companyLogo"><img routerLink="/"  src="../../../assets/images/logo.jpg"
+      alt="Images" height="50px" width="80px" /></span>
+    <span class="bugsmash" routerLink="/"> Accueil </span>&nbsp;&nbsp;&nbsp;
+    <span class="bugsmash" (click)="savedata()"> {{companyName}} &nbsp;&nbsp; Année : {{exercicecompany}}</span>&nbsp;&nbsp;
+    <!--
+    <a routerLink="listofimages" mat-button>
+      List
+    </a>
+    <a routerLink="/uploadimages" mat-button>
+      Upload
+    </a>
+-->
+    <span class="example-spacer"></span>
+    <div>
+      <ng-container *ngComponentOutlet="shower"></ng-container>
+    </div>
+  </mat-toolbar>
+
+  <div>
+    <p-sidebar [(visible)]="display" styleClass="p-sidebar-sm" position="left">
+      <br/> <br/>
+      <div class="row">
+        <div class="myfont col-12">
+          <p-table #dt3 [columns]="colsusercompany" [value]="resultCompany" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedEmail" dataKey="companyId" (onRowSelect)="selectrowchoose2($event)">
+              <ng-template pTemplate="caption">
+                  <div style="text-align: left">
+                      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                      <input type="text" pInputText size="10" placeholder="Rechercher & Selectionner" (input)="dt3.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                      </th>
+                  </tr>
+
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr [pSelectableRow]="rowData">
+                      <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                        <span *ngIf="col.header =='Comapany'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='Enable'">{{rowData[col.field] === 0 ? 'False' : 'True' }}</span>
+                        <span *ngIf="col.header =='Default'">{{rowData[col.field] === 0 ? 'False' : 'True' }}</span>
+                      </td>
+                  </tr>
+              </ng-template>
+
+          </p-table>
+        </div>
+      </div>
+      <hr><hr>
+      <div class="row">
+        <div class="myfont col-12">
+          <p-table #dt33 [columns]="colsuserexercice" [value]="resultexercice" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedEmail" dataKey="annee" (onRowSelect)="selectrowexercice($event)">
+              <ng-template pTemplate="caption">
+                  <div style="text-align: left">
+                      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                      <input type="text" pInputText size="10" placeholder="Rechercher & Selectionner" (input)="dt33.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                  </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                  <tr>
+                      <th *ngFor="let col of columns" class="text-center text-white bg-secondary" [pSortableColumn]="col.field" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+                      </th>
+                  </tr>
+
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr [pSelectableRow]="rowData">
+                      <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                        <span *ngIf="col.header =='Annee'">{{rowData[col.field]}}</span>
+                        <span *ngIf="col.header =='Enable'">{{rowData[col.field] === 0 ? 'False' : 'True' }}</span>
+                      </td>
+                  </tr>
+              </ng-template>
+
+          </p-table>
+        </div>
+      </div>
+      <div class="row">
+
+      </div>
+    </p-sidebar>
+    <router-outlet></router-outlet>
+  </div>
+</body>

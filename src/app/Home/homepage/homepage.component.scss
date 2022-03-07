@@ -1,0 +1,72 @@
+body{
+  overflow:auto;
+
+}
+
+mat-toolbar{
+  padding: 0 3% 0 3%;
+}
+
+.companyLogo{
+  cursor: pointer;
+  padding-top: 10px;
+  margin-right: 10px;
+}
+.bugsmash {
+  font-weight: bolder;
+  font-size: 25px;
+  cursor: pointer;
+  color:white;
+}
+button{
+  margin-inline-end: 10px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.list{
+  margin-right: 350px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-card {
+  width: 30%;
+  margin: 10% auto;
+  border-radius: 8px;
+}
+mat-form-field, mat-checkbox {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+mat-card-content {
+  margin-top: 20px;
+}
+
+.login-button {
+  margin-top: 20px;
+  display: block;
+  width: 80%;
+  margin: 20px auto;
+}
+.mainheading{
+  font-weight: bold;
+  font-size: 48px;
+
+}
+.mycolor{
+  background-color:#4e4e92 !important;
+}
+// mat-grid-list{
+//   background-image: url('https://www.zoho.com/sites/default/files/bugtracker-home-wave.svg'), linear-gradient(to bottom right,  #F3DBD8, #F7ECD7);
+//   background-color: #F4DFD7;
+//   background-repeat: no-repeat;
+//   background-position: bottom;
+// }
+.textDiv{
+  margin-bottom: 45%;
+}

@@ -1,0 +1,16 @@
+
+<div class="container mymarg">
+  <div class class="row">
+    <div class="col-lg-12">
+      <div class="row">
+
+       <div   *ngFor="let item of menugen">
+        <a routerLink="/{{item.menuRoute}}" class=" {{item.menuColor}}" style="margin-top: 20px;">
+             <mat-icon aria-hidden="false" aria-label="Example home icon" class="foricon">{{item.menuImage}}</mat-icon>
+             <br><span  class="forname">{{item.menuName}}</span> <br>
+        </a>
+      </div>
+    </div>
+    </div>
+</div>
+</div>

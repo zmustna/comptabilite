@@ -1,0 +1,40 @@
+
+<mat-card style="width: 300px;
+margin-left: 41%;
+margin-top: 15%;">
+  <mat-card-header>
+    <mat-card-title style="text-align: center;"><b>Connectez-vous pour accéder à ce site Web</b></mat-card-title>
+  </mat-card-header><br>
+  <mat-card-content>
+    <form class="loginForm" [formGroup]="loginForm" (ngSubmit)="onsubmit()">
+      <div style="text-align: center;margin: -30px 0px -10px 0px;">
+        <img src="../../../assets/images/logo.jpg" alt="Picture" height="50%" width="50%"/>
+      </div>
+      <mat-form-field class="loginformfield" appearance="fill">
+        <mat-label>Courrie</mat-label>
+        <input email matInput placeholder="Courrie" formControlName="Email" required>
+        <mat-error *ngIf="Email.errors && Email.errors.required">Email is <b>required</b></mat-error>
+        <mat-error *ngIf="Email.invalid && !Email.hasError('required')">Please enter a <b>valid</b> email address</mat-error>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="loginformfield" appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput placeholder="Mot de Passe" formControlName="Password" required>
+        <mat-error *ngIf="Password.errors && Password.errors.required">Password is <b>required</b></mat-error>
+        <mat-error *ngIf="Password.errors && Password.errors.minlength">Minimum Password Length is <b>6</b> characters</mat-error>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <a routerLink="/forgotpassword" style="float: right;cursor: pointer;">Mot de passe oublié</a><br><br>
+      <button type="submit" [disabled]="loading" [class.spinner]="loading" mat-raised-button color="primary" class="login-button">
+          Se Connecter
+      </button>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+
+

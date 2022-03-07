@@ -1,0 +1,54 @@
+<mat-card style="width: 300px;
+margin-left: 41%;
+margin-top: 15%;">
+  <mat-card-header>
+    <mat-card-title><b>Create New Account</b></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="registerform" [formGroup]="registerationFrom" (ngSubmit)="onsubmit()">
+      <mat-form-field class="registerformfield" appearance="fill">
+        <mat-label>Votre Nom et Prénom</mat-label>
+        <input matInput placeholder="Ex. David Jhon" formControlName="UserFullName" required>
+        <mat-error *ngIf="UserFullName.errors && UserFullName.errors.required">User Name is <b>required</b></mat-error>
+        <mat-error *ngIf="UserFullName.errors && UserFullName.errors.minlength">User Name must be <b>3</b> characters long</mat-error>
+        <mat-icon matSuffix>account_box</mat-icon>
+        <mat-hint align="end">min 3 characters</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="registerformfield" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input email matInput placeholder="Ex. david@gmail.com" formControlName="UserName" required>
+        <mat-error *ngIf="UserName.errors && UserName.errors.required">Email is <b>required</b></mat-error>
+        <mat-error *ngIf="UserName.invalid && !UserName.errors.required">Please enter a valid <b>email</b> address</mat-error>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="registerformfield" appearance="fill">
+        <mat-label>Mot de passe</mat-label>
+        <input type="password" matInput placeholder="Password" formControlName="Password" required>
+        <mat-error *ngIf="Password.errors && Password.errors.required">Password is <b>required</b></mat-error>
+        <mat-error *ngIf="Password.errors && Password.errors.minlength">Password must be <b>6</b> characters long</mat-error>
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-hint align="end">min 6 characters</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="registerformfield" appearance="fill">
+        <mat-label>Confirmer Mot de passe</mat-label>
+        <input type="password" matInput placeholder="Confirm Password" formControlName="confirmpassword" required ngValidateEqual="Password">
+        <mat-error *ngIf="(confirmpassword.dirty || confirmpassword.touched) && confirmpassword.invalid">
+          <mat-error class="warning-text" *ngIf="confirmpassword.hasError('notEqual') && Password.valid">Password & Confirm Password do not <b>match</b></mat-error>
+        </mat-error>
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+      <button type="submit" mat-raised-button [disabled]="loading" [class.spinner]="loading" color="warn" class="register-button">
+        S’enregistrer
+      </button>
+
+      <!-- Form Values: {{registerationFrom.value | json}}
+      Form Status: {{registerationFrom.valid}} -->
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+

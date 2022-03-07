@@ -1,0 +1,74 @@
+.animation-wrapper {
+  height: 50px;
+  width: 200px;
+  padding: 20px;
+  margin: -30px auto;
+  background-color: #dfe7eb;
+  color: #667984;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+h2{
+  color: #f0f3f5;
+}
+label{
+  color: #f0f3f5;
+}
+.fa-animation {
+  height: 80px;
+  width: 100px;
+  margin: -20px 0 0 -20px;
+  position: relative;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+body {
+  .ui-table {
+      .ui-table-tbody {
+          > tr {
+              background: #f0f3f5;
+          }
+
+          > tr:nth-child(even) {
+              background-color: #ffffff;
+          }
+      }
+  }
+}
+.foruser{
+  color: #f0f3f5;
+  font-size: xx-large;
+  }
+
+.fa-lg {
+  font-size: 45px;
+  top: 8px;
+  left: 0px;
+}
+
+.fa-md {
+  font-size: 30px;
+  top: 0px;
+  left: 40px;
+}
+
+.fa-sm {
+  font-size: 24px;
+  top: 30px;
+  left: 35px;
+}

@@ -1,0 +1,87 @@
+.btn-sq-lg {
+  width: 150px !important;
+  height: 150px !important;
+  margin-left: 5px;
+}
+.mymarg{
+  margin-top: 50px;
+}
+.foricon{
+  margin-left:-50px;
+  font-size: 5em;
+   color: white;
+}
+.forname{
+  color: white;
+}
+.btn-sq {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.btn-sq-sm {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.btn-sq-xs {
+  width: 25px !important;
+  height: 25px !important;
+  padding:2px;
+  margin-left: 5px;
+}
+.container-fluid{
+  margin-top: 8px;
+  margin-left: 4px;
+}
+.btn-primary {
+  color: #212529;
+  background-color: rgb(194, 182, 131);
+  border-color: #5bc2c2
+
+}
+.btn-1 {
+  color: #212529;
+  background-color: rgb(39, 119, 223);
+  border-color: #5bc2c2
+
+}
+.btn-2 {
+  color: #212529;
+  background-color: rgba(167, 140, 23, 0.87);
+  border-color: #5bc2c2
+
+}
+.btn-3 {
+  color: #212529;
+  background-color: rgb(110, 57, 196);
+  border-color: #5bc2c2
+
+}
+.btn-4 {
+  color: #212529;
+  background-color: rgb(236, 83, 190);
+  border-color: #5bc2c2
+
+}
+.btn-5 {
+  color: #212529;
+  background-color: rgb(64, 214, 144);
+  border-color: #5bc2c2
+
+}
+
+.btn-primary:hover {
+  color: #212529;
+  background-color: #52bebe;
+  border-color: #8ad3d3
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 .2rem rgba(91, 194, 194, 0.5)
+}

@@ -1,0 +1,38 @@
+export class FirmT {
+    firmID: number;
+    firmName: string;
+    firmAttTo: string;
+    firmAdr: string;
+    firmZipCode: string;
+    firmPlace: string;
+    firmCity: number | null;
+    firmManager: string;
+    firmContPer: string;
+    fIrmConTel: string;
+    firmConCell: string;
+    firmConFax: string;
+    firmEmail: string;
+    firmWebSpace: string;
+    firmAfterHCon: string;
+    firmAfterHConPh: string;
+    firmPayTerm: string;
+    firmPayTermDay: number | null;
+    firmPayLimit: number | null;
+    firmNote: string;
+    firmBrock: number | null;
+    firmSheeper: number | null;
+    firmDispatch: number | null;
+    firmCarr: number | null;
+    firmCarrContrDate: string | null;
+    firmInsuranceCarr: string;
+    firmCarrPolNo: string;
+    firmCarrPolStartDate: string | null;
+    firmCarrPolEndDate: string | null;
+    firmActivity: boolean | null;
+    tINNo: string;
+    mCNo: string;
+    dOTNo: string;
+    firmDirections: string;
+    firmTermId: number | null;
+    firmStateId: number | null;
+}

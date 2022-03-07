@@ -1,0 +1,20 @@
+
+<h1 style="text-align: center;">Upload Images</h1>
+
+<div class="custom-dropzone" style="min-height: 400px;" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)" [expandable]="true" [maxFileSize]="1000000">
+  <ngx-dropzone-label>
+    <div>
+      <h3>Drop file or add attachments here...</h3>
+      <h4>*Max Size 1MB</h4>
+    </div>
+  </ngx-dropzone-label>
+  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+    <ngx-dropzone-label>{{ f.name }} ({{ f.type }}) ({{f.size}} Bytes)</ngx-dropzone-label>
+  </ngx-dropzone-image-preview>
+</div>
+
+<div style="text-align: center;margin-top: 10px;">
+  <button (click)="UploadPictures()" mat-raised-button color="warn" style="width: 500px;">
+    SAVE PHOTOS
+  </button>
+</div>
