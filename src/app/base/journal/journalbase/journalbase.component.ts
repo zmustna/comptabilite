@@ -75,24 +75,56 @@ export class JournalbaseComponent implements OnInit {
   deleteid() {
 
   }
-  imprimer() {
-    let res = new Array<any>(); res.push('useremail'); res.push(localStorage.getItem('useremail'));
-    res.push('CompanyId'); res.push(this.codeCompany.toString());
-    res.push('companyname');res.push(localStorage.getItem('namecompany'));
-     this.resultx = []; this.resultx = res;
-    this.Spinner.show();
-      this.service.getList("/CompteComptable/Printreport", this.resultx)
-    .subscribe(
-      (data:any) => {
+  createAndDownloadBlobFile(body, filename, extension = 'pdf') {
+    const blob = new Blob([body]);
+    const fileName = `${filename}.${extension}`;
 
-        this.Spinner.hide();
-      },
-      (err:any)=>{
-        this.Spinner.hide();
-
+      const link = document.createElement('a');
+      // Browsers that support HTML5 download attribute
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', fileName);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
-    )
+
   }
+  base64ToArrayBuffer(base64: string) {
+    const binaryString = window.atob(base64); // Comment this if not using base64
+    const bytes = new Uint8Array(binaryString.length);
+    return bytes.map((byte, i) => binaryString.charCodeAt(i));
+  }
+  imprimer() {
+
+
+      /*
+      let res = new Array<any>(); res.push('useremail'); res.push(localStorage.getItem('useremail'));
+      res.push('CompanyId'); res.push(this.codeCompany.toString());
+      res.push('companyname');res.push(localStorage.getItem('namecompany'));
+       this.resultx = []; this.resultx = res;
+       */
+      this.Spinner.show();
+        this.service.getResult("/journal/CreatePDF")
+      .subscribe(
+        (data:any) => {
+          const arrayBuffer = this.base64ToArrayBuffer(data);
+          this.createAndDownloadBlobFile(arrayBuffer, 'jorn');
+         //// let file = new Blob([data.byteArray], { type: 'application/pdf' });
+        //  var fileURL = URL.createObjectURL(file);
+        //  window.open(fileURL);
+          this.Spinner.hide();
+        },
+        (err:any)=>{
+          console.log(err)
+          this.Spinner.hide();
+
+        }
+      )
+    }
+
   hideDialog(){
 this.displaycompte=false;
   }
