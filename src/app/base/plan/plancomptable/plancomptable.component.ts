@@ -98,21 +98,12 @@ export class PlancomptableComponent implements OnInit {
   }
   imprimer() {
 
-    /*
-    let res = new Array<any>(); res.push('useremail'); res.push(localStorage.getItem('useremail'));
-    res.push('CompanyId'); res.push(this.codeCompany.toString());
-    res.push('companyname');res.push(localStorage.getItem('namecompany'));
-     this.resultx = []; this.resultx = res;
-     */
     this.Spinner.show();
       this.service.getResult("/comptecomptable/CreatePDF")
     .subscribe(
       (data:any) => {
         const arrayBuffer = this.base64ToArrayBuffer(data);
-        this.createAndDownloadBlobFile(arrayBuffer, 'testName');
-       //// let file = new Blob([data.byteArray], { type: 'application/pdf' });
-      //  var fileURL = URL.createObjectURL(file);
-      //  window.open(fileURL);
+        this.createAndDownloadBlobFile(arrayBuffer, 'PlanComptable');
         this.Spinner.hide();
       },
       (err:any)=>{
