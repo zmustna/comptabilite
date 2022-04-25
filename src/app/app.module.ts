@@ -57,6 +57,11 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { SocieteComponent } from './societe/societe/societe.component';
 import { ExerciceComponent } from './societe/exercice/exercice.component';
 import { UserexerciceComponent } from './societe/Userexercice/Userexercice.component';
+import {GrandlivreComponent} from './consultation/grandlivre/grandlivre.component';
+import {JournauxComponent} from './consultation/journaux/journaux.component';
+import {BalanceComponent} from './consultation/balance/balance.component';
+import { LettrageComponent } from './lettrage/lettrage/lettrage.component';
+import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
 @NgModule({
   declarations: [
     AppComponent,CompanyComponent,UserandsmenuComponent,
@@ -67,9 +72,9 @@ import { UserexerciceComponent } from './societe/Userexercice/Userexercice.compo
     UploadphotosComponent,SaisieComponent,
     HomepageviewComponent,TypejournalComponent,ComptebilantComponent,
     LoginandsignuppartialviewComponent,RadicalcompteComponent,
-    ForgotpasswordComponent,TypecompteComponent,UserexerciceComponent,
-    LogoutpartialviewComponent,JournalbaseComponent,ExerciceComponent,
-      UpdatepasswordComponent,UserandmenuComponent,SocieteComponent
+    ForgotpasswordComponent,TypecompteComponent,UserexerciceComponent,CbanqueComponent,
+    LogoutpartialviewComponent,JournalbaseComponent,ExerciceComponent,BalanceComponent,LettrageComponent,
+      UpdatepasswordComponent,UserandmenuComponent,SocieteComponent,GrandlivreComponent,JournauxComponent
    ],
   imports: [
     MatSidenavModule,NgbModule,NgbButtonsModule,SharesModule, RippleModule,BrowserModule,BrowserAnimationsModule,

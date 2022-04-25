@@ -98,31 +98,23 @@ export class JournalbaseComponent implements OnInit {
     return bytes.map((byte, i) => binaryString.charCodeAt(i));
   }
   imprimer() {
-
-
-      /*
-      let res = new Array<any>(); res.push('useremail'); res.push(localStorage.getItem('useremail'));
-      res.push('CompanyId'); res.push(this.codeCompany.toString());
-      res.push('companyname');res.push(localStorage.getItem('namecompany'));
+    this.Spinner.show();
+    let res = new Array<any>();
+    res.push('id'); res.push(localStorage.getItem('companycode'));
        this.resultx = []; this.resultx = res;
-       */
-      this.Spinner.show();
-        this.service.getResult("/journal/CreatePDF")
-      .subscribe(
-        (data:any) => {
-          const arrayBuffer = this.base64ToArrayBuffer(data);
-          this.createAndDownloadBlobFile(arrayBuffer, 'jorn');
-         //// let file = new Blob([data.byteArray], { type: 'application/pdf' });
-        //  var fileURL = URL.createObjectURL(file);
-        //  window.open(fileURL);
-          this.Spinner.hide();
-        },
-        (err:any)=>{
-          console.log(err)
-          this.Spinner.hide();
+      this.service.getList("/journal/CreatePDF", this.resultx)
+    .subscribe(
+      (data:any) => {
+        const arrayBuffer = this.base64ToArrayBuffer(data);
+        this.createAndDownloadBlobFile(arrayBuffer, 'Journal');
+        this.Spinner.hide();
+      },
+      (err:any)=>{
+        console.log(err)
+        this.Spinner.hide();
 
-        }
-      )
+      }
+    )
     }
 
   hideDialog(){

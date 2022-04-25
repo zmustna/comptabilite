@@ -1,0 +1,172 @@
+/******** Main body ******/
+.myLeftCtn{
+
+  background: #fff;
+  height: 100%;
+  padding: 25px;
+  margin: 0px 15px;
+}
+.myBtnSection{
+  position: relative;
+  background: #fff;
+  margin: 0px;
+  padding: 30px 12px;
+  border-radius: 10px;
+}
+.TableSection{
+  position: relative;
+  background: #fff;
+  padding: 0px;
+  margin: 0px;
+}
+/******** Imput Form ******/
+.myInputNew{
+  width: 100%;
+  border-radius: 6px;
+  padding: 8px;
+  margin: 2px 2px;
+  padding-left: 24px;
+  border: 1px solid #9f0cdc;
+  font-family: inherit;
+  font-size: 16px;
+  letter-spacing: .5px;
+  line-height: inherit;
+  box-shadow: 0px 10px 49px -14px rgb(0 0 0 / 70%);
+}
+.myInputNew:focus{
+  outline: none;
+}
+.colorr{
+  color: black !important;
+}
+.myInputNew.ng-touched.ng-invalid{
+  border: 1px solid #FF0000 !important;
+}
+.myInputNew.ng-touched.ng-valid{
+  border: 1px solid #00FF00 !important;
+}
+.form-group-label {
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #b635bf;
+}
+/******** Check Box ******/
+.checkbox-header{
+  background-color: #bb36fd;
+  margin: 0px 0px;
+  border-radius: 4px;
+}
+.checkbox-header p {
+  padding: 8px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 16px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  font-style: italic;
+  font-family: sans-serif;
+}
+.checkbox-body{
+  background: rgb(211 202 214 / 36%);
+  margin: -2px 0px;
+  border-radius: 4px;
+  font-size: 18px;
+  color: #9b00e8;
+}
+input.form-check-input {
+  width: 15px;
+  height: 16px;
+  color: #9b00e8;
+}
+.form-check-label{
+  color: #9b00e8;
+}
+.colo{
+  background: white;
+  cursor: pointer;
+}
+/******** Submit Btn ******/
+.submit-btn-color{
+  background: linear-gradient(45deg, #bb36fd, #9b00e8);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+
+  text-transform: capitalize;
+  transition: 0.3s;
+  margin: 2px;
+}
+.mywi{
+  width: 60px;
+}
+.mywi1{
+  width: 120px;
+}
+.mywi2{
+  width: 480px;
+}
+h6{
+  color: white;
+}
+label{
+  color: white;
+}
+.submit-btn-color a {
+  color: #fff;
+}
+.submit-btn-color:hover{
+  background: linear-gradient(45deg, #c85bff, #b159dd) !important;
+  color: #fff !important;
+}
+.submit-btn-color.active{
+  background: linear-gradient(45deg, #c85bff, #b159dd) !important;
+  color: #fff !important;
+}
+.btn{
+  font-size: 14px;
+}
+.btn:focus{
+  outline: none !important;
+}
+/******** CSS  ******/
+
+@media (max-width: 528px) {
+  .submit-btn-color{
+      padding: 10px 7px;
+      font-size: 12px;
+  }
+}
+@media (max-width: 475px) {
+  .submit-btn-color{
+      padding: 10px 7px;
+      font-size: 12px;
+  }
+}
+@media (max-width: 475px){
+  .submit-btn-color {
+      padding: 10px 4px!important;
+      font-size: 10px;
+  }
+}
+@media (max-width: 361px){
+  .submit-btn-color {
+      padding: 10px 4px!important;
+      font-size: 8px;
+  }
+}
+.red{
+  .ui-table {
+    .ui-table-tbody {
+        > tr {
+            background: #f0f3f5;
+        }
+
+        > tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    }
+}
+}

@@ -28,7 +28,11 @@ import { ComptebilantComponent } from './base/comptebilant/comptebilant.componen
 import { SocieteComponent } from './societe/societe/societe.component';
 import { ExerciceComponent } from './societe/exercice/exercice.component';
 import { UserexerciceComponent } from './societe/Userexercice/Userexercice.component';
-
+import {GrandlivreComponent} from './consultation/grandlivre/grandlivre.component';
+import { JournauxComponent } from './consultation/journaux/journaux.component';
+import { BalanceComponent } from './consultation/balance/balance.component';
+import { LettrageComponent } from './lettrage/lettrage/lettrage.component';
+import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
 
 const routes: Routes = [
   //New Routing
@@ -57,6 +61,12 @@ const routes: Routes = [
     {path:'societeg',component:SocieteComponent, canActivate:[AuthorizationGuard]},
     {path:'exercice',component:ExerciceComponent, canActivate:[AuthorizationGuard]},
     {path:'Userexercice',component:UserexerciceComponent, canActivate:[AuthorizationGuard]},
+    {path:'consultation',component:GrandlivreComponent, canActivate:[AuthorizationGuard]},
+    {path:'Journaux',component:JournauxComponent, canActivate:[AuthorizationGuard]},
+    {path:'Balance',component:BalanceComponent, canActivate:[AuthorizationGuard]},
+    {path:'LCompte',component:LettrageComponent, canActivate:[AuthorizationGuard]},
+    {path:'CBanque',component:CbanqueComponent, canActivate:[AuthorizationGuard]},
+
   ]},
 
   {path:'**',redirectTo:'/'},  {path:'**',component:HomepageComponent}

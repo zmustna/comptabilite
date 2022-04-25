@@ -12,8 +12,10 @@ import { mvtdetail } from "src/app/Models/base/mvtdetail";
 import { companyUser } from "src/app/Models/companyUser";
 import { LoginandsignuppartialviewComponent } from "src/app/User/loginandsignuppartialview/loginandsignuppartialview.component";
 import { LogoutpartialviewComponent } from "src/app/User/logoutpartialview/logoutpartialview.component";
-import { CompteComptablex } from "../../../Models/base/compteComptablex";
-import { journal } from '../../../Models/base/journal';
+import { CompteComptablex } from "../../Models/base/compteComptablex";
+import { journal } from '../../Models/base/journal';
+import * as moment from 'moment';
+import { allowedNodeEnvironmentFlags } from "process";
 interface City {
   name: string,
   code: string
@@ -23,12 +25,13 @@ interface Journ {
   jL_code: number
 }
 @Component({
-  selector: "app-saisie",
-  templateUrl: "./saisie.component.html",
-  styleUrls: ["./saisie.component.scss"]
+  selector: 'app-lettrage',
+  templateUrl: './lettrage.component.html',
+  styleUrls: ['./lettrage.component.scss']
 })
+export class LettrageComponent implements OnInit {
 
-export class SaisieComponent implements OnInit {
+datedu:Date;dateau:Date;compte:string="";
   title: string = "Saisie Des Eritures Comptables Exercice";
   customIcon="fa fa-search"; day: number=0;
   exform: FormGroup = new FormGroup({
@@ -52,13 +55,13 @@ export class SaisieComponent implements OnInit {
   displayfolio: boolean;
 
   clicksub(){
-  //  console.log(this.exform.value);
+    console.log(this.exform.value);
     this.exform.reset();
   }
   get mois() { return this.exform.get('mois'); }
   get journal() { return this.exform.get('journal'); }
   get mouvement() { return this.exform.get('mouvement'); }
-  get compte() { return this.exform.get('compte'); }
+
   get libelle() { return this.exform.get('libelle'); }
   get jour() { return this.exform.get('jour'); }
   get picec() { return this.exform.get('picec'); }
@@ -75,26 +78,19 @@ export class SaisieComponent implements OnInit {
 
   ];
   cols = [
-    { field: "mV_jopt", header: "Jour",  width: "5%", display: "table-cell",  align: "center", size: "0.8em" },
+    { field: "mv_lig", header: "Lig",  width: "5%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "mv_folio", header: "Mvt",  width: "6%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "abreg", header: "Jl",  width: "5%", display: "table-cell",  align: "center", size: "0.8em" },
+    { field: "mv_date", header: "D.Ecriture",  width: "8%", display: "table-cell",  align: "center", size: "0.8em" },
     { field: "mv_piece", header: "Piece",  width: "6%", display: "table-cell",  align: "right", size: "0.8em" },
-    { field: "mv_compt", header: "Compte",  width: "8%", display: "table-cell",  align: "right", size: "0.8em" },
-    { field: "client", header: "Compte Libelle",  width: "19%", display: "table-cell",  align: "left", size: "0.8em" },
-    { field: "mv_libop", header: "Libelle",  width: "37%", display: "table-cell",  align: "left", size: "0.8em" },
-    { field: "mv_montd", header: "Debit",  width: "9%", display: "table-cell",  align: "right", size: "0.8em" },
-    { field: "mv_montc", header: "Credit",  width: "9%", display: "table-cell",  align: "right", size: "0.8em" },
-    { field: "mv_folio", header: "Action", display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_lig", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_mmc", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_aac", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "jl_code", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_cheq", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_littrage", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "companyId", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_date", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "annee", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "FACTURE", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "mv_datec", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "", header: "Supprimer",  width: "8%", display: "table-cell",  align: "center", size: "0.8em" },
+    { field: "mv_libop", header: "Libelle ecriture",  width: "27%", display: "table-cell",  align: "left", size: "0.8em" },
+    { field: "mv_montd", header: "Debit",  width: "8%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "mv_montc", header: "Credit",  width: "8%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "mv_littrage", header: "Let",  width: "5%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "wletd", header: "+",  width: "8%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "wletc", header: "-",  width: "8%", display: "table-cell",  align: "right", size: "0.8em" },
+    { field: "", header: "Enlever",  width: "6%", display: "table-cell",  align: "center", size: "0.8em" },
+
   ];
   colsusercompany = [
     { field: 'compteId', header: 'Compte',  width: '30%', display: 'table-cell',  align: 'left', size: '0.8em' },
@@ -118,10 +114,10 @@ export class SaisieComponent implements OnInit {
     angForm: FormGroup; userDetails; myFile: any;loading: boolean; message: string; result: any[]=[]; resultx: string[] = [];
   url: string; username: any;standarCompany: any;resulttele: any; progress: number;resultJOURNAL:any[]=[];resultCompany:any[]=[];
   wjour:number;wpiece:number=0;wcompte:string="";wlibelle:string="";wdebit:number;wcredit:number;wmvtmvt:number;
-display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;
-@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;
-filterFromUrl:string="";comptelibelle:string="";
-
+display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;wdu:string;
+@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;witchcompte:number=0;
+filterFromUrl:string="";comptelibelle:string="";displayediter:boolean=false;comptedu:string="";compteau:string="";
+wdeb:any;wcre:any;testtot:boolean=false;arraylist:any[]=[];
   constructor(private http: HttpClient, private snackbar:MatSnackBar, private Spinner: NgxSpinnerService, private fb: FormBuilder,  private router: Router, private service: UserGlobalService, private toastr: ToastrService) {
     this.setMenu(); this.createForm();this.createmonth();
   }
@@ -177,27 +173,24 @@ filterFromUrl:string="";comptelibelle:string="";
       }
   libelleEvent(event: any){
 
-   // console.log(this.angForm.value.compte);
-    this.filterFromUrl = this.angForm.value.compte;
+    this.filterFromUrl = this.compte;
     let wcompte=this.filterFromUrl.length;
-   // console.log("this zalal : " + wcompte);
        if(wcompte < 10){
          for (let index = wcompte; index < 10; index++)
           {
             this.filterFromUrl = this.filterFromUrl + "0";
           }
        }
-       this.angForm.setValue({ jour: this.angForm.value.jour,
-        piece:this.angForm.value.piece,compte: this.filterFromUrl,
-        libelle:this.angForm.value.libelle,
-        debit:this.angForm.value.debit,credit:this.angForm.value.credit
-       });
+
   let filtered = roleParam => this.resultCompany.some( ({compteId}) => compteId == roleParam)
 let gg = this.resultCompany.filter( ({compteId}) => compteId == this.filterFromUrl);
 
 if (filtered(this.filterFromUrl)){
+
   this.comptelibelle = gg[0]["libelle"];
-  this.wlibelleelement.nativeElement.focus();
+  this.compte = gg[0]["compteId"];
+
+  this.display = false;
 }else{
   this.display = true;
 
@@ -238,22 +231,74 @@ this.Spinner.show();
   ngAfterViewInit() {
    // this.nameElement.nativeElement.focus();
   }
-  deleteid(e) {
-alert(JSON.stringify(e));
+  deleteid() {
+
+  }
+  base64ToArrayBuffer(base64: string) {
+    const binaryString = window.atob(base64); // Comment this if not using base64
+    const bytes = new Uint8Array(binaryString.length);
+    return bytes.map((byte, i) => binaryString.charCodeAt(i));
+  }
+  createAndDownloadBlobFile(body, filename, extension = 'pdf') {
+    const blob = new Blob([body]);
+    const fileName = `${filename}.${extension}`;
+
+      const link = document.createElement('a');
+      // Browsers that support HTML5 download attribute
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', fileName);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+
   }
   imprimer() {
-    let res = new Array<any>(); res.push("useremail"); res.push(localStorage.getItem("useremail"));
-    res.push("CompanyId"); res.push(this.codeCompany.toString());
-    res.push("companyname");res.push(localStorage.getItem("namecompany"));
-     this.resultx = []; this.resultx = res;
+    this.displayediter=true;
+  }
+  imprimerg() {
     this.Spinner.show();
-      this.service.getList("/CompteComptable/Printreport", this.resultx)
+    let res = new Array<any>();
+    res.push('id'); res.push(this.comptedu);res.push('idau'); res.push(this.compteau);
+    res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+    res.push('datedu'); res.push(moment(this.datedu).format("MM/DD/YYYY"));
+    res.push('dateau'); res.push(moment(this.dateau ).format("MM/DD/YYYY"));
+    res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+       this.resultx = []; this.resultx = res;
+      this.service.getList("/fmvt/CreatePDF1", this.resultx)
     .subscribe(
       (data:any) => {
+        const arrayBuffer = this.base64ToArrayBuffer(data);
+        this.createAndDownloadBlobFile(arrayBuffer, 'GrandLivre');
+        this.Spinner.hide();
+      },
+      (err:any)=>{
+        console.log(err)
+        this.Spinner.hide();
+
+      }
+    )
+  }
+  imprimero() {
+    this.Spinner.show();
+    let res = new Array<any>();
+    res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+    res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+       this.resultx = []; this.resultx = res;
+      this.service.getList("/fmvt/Getfmvt", this.resultx)
+    .subscribe(
+      (data:any) => {
+        this.result = [];
+        this.result=data;
+     //   console.log(JSON.stringify(data));
 
         this.Spinner.hide();
       },
       (err:any)=>{
+        console.log(err)
         this.Spinner.hide();
 
       }
@@ -295,6 +340,8 @@ onChangejour(event) {
 if(this.moiss > 0) this.getmvtdetail();
 }
 onReset(){
+  this.wdeb='';this.wcre='';this.compte='';this.comptelibelle='';
+  this.arraylist =[];
   this.wmois = 0; this.moiss=0; this.wjour = 0; this.journn=0;this.wjourn=0; this.result = []; this.angForm.reset(); this.wligne = 0;this.wfolioelement.nativeElement.value = ' ';
 }
   getmvtdetail(){
@@ -391,102 +438,192 @@ onReset(){
   onFocusEvent(e){
     this.display=true;
   }
+  onducompte(x){
+     this.witchcompte = x;
+  }
   selectrowchoosefolio(e){
     this.wmvtmvt = e.data.mv_folio;
-    this.journn = parseInt(e.data.jl_code);
+    this.journn = e.data.jl_code;
     this.wjourn = e.data.jl_code;
   this.moiss = e.data.mv_mmc;
   this.wmois = e.data.mv_mmc;
-  let month = this.moiss;
-  let year = parseInt( localStorage.getItem("exercicecompany"));
-  this.day = new Date(year, month, 0).getDate();
-  console.log(this.day);
-    this.getmvtdetailfolio();
+     this.getmvtdetailfolio();
     this.displayfolio = false;
      }
   selectrowchoose2(e){
-
-    this.angForm.setValue({ jour: this.angForm.value.jour,
-                         piece:this.angForm.value.piece,compte: e.data.compteId,
-                         libelle:this.angForm.value.libelle,
-                         debit:this.angForm.value.debit,credit:this.angForm.value.credit
-                        });
+    this.compte= e.data.compteId,
     this.comptelibelle= e.data.libelle;
-    this.wlibelleelement.nativeElement.focus();
     this.display = false;
   }
+  selectrowchoose3(e){
+    if (this.witchcompte === 1){
+      this.comptedu= e.data.compteId
+     // this.comptelibelle= e.data.libelle;
+    }
+    if (this.witchcompte === 2){
+      this.compteau= e.data.compteId
+     // this.comptelibelle= e.data.libelle;
+    }
+
+  }
+  deletelet(e){
+ this.Spinner.show();
+ let res = new Array<any>();
+ res.push('wcompte');  res.push(this.compte);
+ res.push('id');  res.push(e.mv_littrage);
+res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+
+ this.resultx = []; this.resultx = res;
+ this.service.getList("/fmvt/Getupdatelet", this.resultx)
+ .subscribe(
+   (data:any) => {
+     this.result = [];
+     this.result=data;
+this.arraylist = [];
+this.wdeb =""; this.wcre ="";
+     this.Spinner.hide();
+   },
+   (err:any)=>{
+
+     this.Spinner.hide();
+     this.snackbar.open('You are not Authorized Person to see Plan!','?', {
+       duration:4000,
+       horizontalPosition:'center',
+       verticalPosition:'top'
+     })
+   }
+ )
+  }
   selectrow(e) {
-    this.wjour = e.data.mvtJour; this.wpiece = e.data.mvtPiece;this.wcompte = e.data.compteId;
-    this.wlibelle = e.data.mvtLibelle; this.wdebit = e.data.mvtDebit;this.wcredit = e.data.mvtCredit;
-    this.codeid=e.data.mvtId;
-    this.nameElement.nativeElement.focus();
-  }
-  onRowEditCancel(rowData){
+    if(e.data.mv_littrage === 0){
+    let wnum:number=0; let wnum0:number=0;
+    let wnum1:number=0; let wnum10:number=0;
+    if((typeof e.data.wletd === "undefined" && typeof  e.data.wletc === "undefined") || (e.data.wletd === "" &&  e.data.wletc === "") ){
+       if(e.data.mv_montd !== 0){
+         wnum=parseInt(e.data.mv_montd);
+         wnum0=parseInt(this.wdeb);
+         if(isNaN(wnum0) === true) wnum0 = 0;
+         this.wdeb = wnum0 + wnum;
+        e.data.wletd = parseInt(e.data.mv_montd);
+        this.arraylist.push(e.data.mv_lig);
+      }
+      if(e.data.mv_montc !== 0){
+         wnum=parseInt(e.data.mv_montc);
+         wnum0=parseInt(this.wcre);
+        if(isNaN(wnum0) === true) wnum0 = 0;
+        this.wcre = wnum0 + wnum;
+       e.data.wletc = parseInt(e.data.mv_montc);
+       this.arraylist.push(e.data.mv_lig);
+     }
 
-  }
-  onSubmit() {
-    this.Spinner.show();
-     let fiile = new mvtdetail(); let i = 0;
-      fiile.jl_code = parseInt(this.journn.toString());
-     fiile.companyId =parseInt( localStorage.getItem("companycode"));
-      fiile.mv_libop =  this.angForm.value.libelle;
-      fiile.mV_jopt =  parseInt(this.angForm.value.jour);
-      fiile.mv_compt = this.angForm.value.compte;
-      fiile.mv_piece = parseInt(this.angForm.value.piece);
-      fiile.mv_mmc = this.moiss;
-      fiile.mv_folio = this.wmvtmvt;
-      fiile.client=this.comptelibelle;
-      fiile.mv_montd =  parseFloat(this.angForm.value.debit);
-      fiile.mv_littrage = 0;
-      fiile.annee = parseInt( localStorage.getItem("exercicecompany"));
-      fiile.mv_montc = parseFloat(this.angForm.value.credit);
-      fiile.mv_aac = parseInt( localStorage.getItem("exercicecompany"));
-      fiile.mV_UTILIS =  localStorage.getItem("useremail");
-      fiile.mv_date = new Date(fiile.mv_aac, fiile.mv_mmc, fiile.mV_jopt, 0, 0, 0, 0);
-      fiile.mv_lig = this.wligne;
-      if(Number.isInteger(fiile.mv_montd) === false) fiile.mv_montd = 0;
-      if(Number.isInteger(fiile.mv_montc) === false) fiile.mv_montc = 0;
-      //console.log(JSON.stringify(fiile));
-      this.service.ExecutePost("/fmvt/Update", fiile).subscribe(() => {
-      if (i === 0) {
-        this.wligne = 0; this.angForm.reset();this.comptelibelle = "";
-        this.getmvtdetailfolio();
-        this.Spinner.hide();
+    }
+    else{
+      if(parseInt(e.data.mv_montd) !== 0){
+         wnum=parseInt(e.data.wletd);
+         wnum0=parseInt(this.wdeb);
+        if(isNaN(wnum0) === true) wnum0 = 0;
+        this.wdeb = wnum0 - wnum;
 
-      } else {
+      const startIndex =  this.arraylist.indexOf(e.data.mv_lig);
+      const deleteCount = 1;
+
+      if (startIndex !== -1) {
+        this.arraylist.splice(startIndex, deleteCount);
+      }
+     }
+     if(parseInt(e.data.mv_montc) !== 0){
+      let wnum:number=0; wnum=parseInt(e.data.wletc);
+      let wnum0:number=0; wnum0=parseInt(this.wcre);
+      if(isNaN(wnum0) === true) wnum0 = 0;
+      this.wcre = wnum0 - wnum;
+
+      const startIndex =  this.arraylist.indexOf(e.data.mv_lig);
+      const deleteCount = 1;
+
+      if (startIndex !== -1) {
+        this.arraylist.splice(startIndex, deleteCount);
       }
 
-    }, err =>{
-      console.error(err);
-      this.Spinner.hide();
+   }
+      e.data.wletc = "";e.data.wletd = "";
     }
-
-    );
+    wnum1=parseInt(this.wdeb); wnum10=parseInt(this.wcre);
+   if(wnum1 === wnum10){
+     this.testtot = true;
+   }else{
+     this.testtot=false;
+   }
+  }
+   // alert(e.data.mv_montd);
 
   }
-  getjournal(){
-    this.Spinner.show();
+  onSubmit2() {
+
+ this.Spinner.show();
+ let res = new Array<any>();
+ res.push('wcompte');  res.push(this.compte);
+ let coun = this.arraylist.length;let j:number=0;
+ let iid:string;
+ for( j=0 ; j < coun ; j++ )
+{
+    iid = iid + "," + this.arraylist[j];
+}
+res.push('id');  res.push(iid);
+res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+
+ this.resultx = []; this.resultx = res;
+ this.service.getList("/fmvt/Getupdate", this.resultx)
+ .subscribe(
+   (data:any) => {
+     this.result = [];
+     this.result=data;
+iid =''; this.arraylist = [];
+this.wdeb =""; this.wcre ="";
+     this.Spinner.hide();
+   },
+   (err:any)=>{
+
+     this.Spinner.hide();
+     this.snackbar.open('You are not Authorized Person to see Plan!','?', {
+       duration:4000,
+       horizontalPosition:'center',
+       verticalPosition:'top'
+     })
+   }
+ )
+  }
+  onSubmit() {
+     this.Spinner.show();
     let res = new Array<any>();
-    res.push('id'); res.push(localStorage.getItem('companycode'));
-     this.resultx = []; this.resultx = res;
-    this.service.getList("/journal/GetAlljournal", this.resultx)
-  .subscribe(
-    (data:any) => {
-      this.resultJOURNAL = [];
-      this.resultJOURNAL=data;
-    //  console.log(JSON.stringify(data));
-      this.Spinner.hide();
-    },
-    (err:any)=>{
-      this.Spinner.hide();
-      this.snackbar.open('You are not Authorized Person to see Plan!','?', {
-        duration:4000,
-        horizontalPosition:'center',
-        verticalPosition:'top'
-      })
-    }
-  )
+    let date: string = parseInt( localStorage.getItem("exercicecompany"))+'/'+('01')+'/'+'01';
+    let dateau: string = parseInt( localStorage.getItem("exercicecompany"))+'/'+('12')+'/'+'31';
+    res.push('id');  res.push(this.compte);
+    res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+    res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+    res.push('datedu'); res.push(moment(date).format("MM/DD/YYYY"));
+    res.push('dateau'); res.push(moment(dateau).format("MM/DD/YYYY"));
+    this.resultx = []; this.resultx = res;
+    this.service.getList("/fmvt/GetAllcompte", this.resultx)
+    .subscribe(
+      (data:any) => {
+        this.result = [];
+        this.result=data;
+
+        this.Spinner.hide();
+      },
+      (err:any)=>{
+        this.Spinner.hide();
+        this.snackbar.open('You are not Authorized Person to see Plan!','?', {
+          duration:4000,
+          horizontalPosition:'center',
+          verticalPosition:'top'
+        })
+      }
+    )
   }
+
   getcomptecomptable(){
     this.Spinner.show();
     let res = new Array<any>();
@@ -513,7 +650,7 @@ onReset(){
     localStorage.setItem("sousmenu","3");
   }
     ngOnInit() {
-      this.standarCompany = localStorage.getItem("CompanyGlobalId");
+   this.standarCompany = localStorage.getItem("CompanyGlobalId");
       this.codeCompany = parseInt( localStorage.getItem("companycode"));
       if(localStorage.getItem("userToken") != null && localStorage.getItem("userToken") != "null")
       {
@@ -521,9 +658,9 @@ onReset(){
       }else{
          this.shower=LoginandsignuppartialviewComponent;
       }
+      this.wdu = localStorage.getItem("exercicecompany");
       Promise.resolve("done")
         .then((val) => {this.setMenu()})
-         .then((val) => { this.getjournal()})
          .then((val) => { this.getcomptecomptable()})
         .catch((err) => console.error(err));
 

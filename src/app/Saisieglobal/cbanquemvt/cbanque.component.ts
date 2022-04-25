@@ -12,8 +12,8 @@ import { mvtdetail } from "src/app/Models/base/mvtdetail";
 import { companyUser } from "src/app/Models/companyUser";
 import { LoginandsignuppartialviewComponent } from "src/app/User/loginandsignuppartialview/loginandsignuppartialview.component";
 import { LogoutpartialviewComponent } from "src/app/User/logoutpartialview/logoutpartialview.component";
-import { CompteComptablex } from "../../../Models/base/compteComptablex";
-import { journal } from '../../../Models/base/journal';
+import { CompteComptablex } from "../../Models/base/compteComptablex";
+import { journal } from '../../Models/base/journal';
 interface City {
   name: string,
   code: string
@@ -22,13 +22,13 @@ interface Journ {
   jl_design: string,
   jL_code: number
 }
-@Component({
-  selector: "app-saisie",
-  templateUrl: "./saisie.component.html",
-  styleUrls: ["./saisie.component.scss"]
-})
 
-export class SaisieComponent implements OnInit {
+@Component({
+  selector: 'app-cbanque',
+  templateUrl: './cbanque.component.html',
+  styleUrls: ['./cbanque.component.css']
+})
+export class CbanqueComponent implements OnInit {
   title: string = "Saisie Des Eritures Comptables Exercice";
   customIcon="fa fa-search"; day: number=0;
   exform: FormGroup = new FormGroup({
@@ -469,7 +469,7 @@ onReset(){
     let res = new Array<any>();
     res.push('id'); res.push(localStorage.getItem('companycode'));
      this.resultx = []; this.resultx = res;
-    this.service.getList("/journal/GetAlljournal", this.resultx)
+    this.service.getList("/journal/GetAlljournalbanque", this.resultx)
   .subscribe(
     (data:any) => {
       this.resultJOURNAL = [];
@@ -524,8 +524,7 @@ onReset(){
       Promise.resolve("done")
         .then((val) => {this.setMenu()})
          .then((val) => { this.getjournal()})
-         .then((val) => { this.getcomptecomptable()})
-        .catch((err) => console.error(err));
+         .catch((err) => console.error(err));
 
   }
 

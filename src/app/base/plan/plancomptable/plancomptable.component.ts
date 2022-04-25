@@ -99,7 +99,10 @@ export class PlancomptableComponent implements OnInit {
   imprimer() {
 
     this.Spinner.show();
-      this.service.getResult("/comptecomptable/CreatePDF")
+    let res = new Array<any>();
+    res.push('id'); res.push(localStorage.getItem('companycode'));
+       this.resultx = []; this.resultx = res;
+      this.service.getList("/comptecomptable/CreatePDF", this.resultx)
     .subscribe(
       (data:any) => {
         const arrayBuffer = this.base64ToArrayBuffer(data);
@@ -242,15 +245,16 @@ selectrowcompte(e) {
 
 
   getstate(){
-    this.Spinner.show();
     let res = new Array<any>();
     res.push('id'); res.push(localStorage.getItem('companycode'));
+
      this.resultx = []; this.resultx = res;
 
     this.Spinner.show();
       this.service.getList("/comptecomptable/GetAllcompte", this.resultx)
         .subscribe(
       (data:any) => {
+        this.Spinner.show();
         this.result = [];
         this.result=data;
        // console.log(JSON.stringify(this.result));
