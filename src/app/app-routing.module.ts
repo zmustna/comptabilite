@@ -33,6 +33,9 @@ import { JournauxComponent } from './consultation/journaux/journaux.component';
 import { BalanceComponent } from './consultation/balance/balance.component';
 import { LettrageComponent } from './lettrage/lettrage/lettrage.component';
 import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
+import { MensueljournalComponent } from './centralisation/mensueljournal/mensueljournal.component';
+import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/annuellejournaux.component';
+import { RecompteComponent } from './redresment/recompte/recompte.component';
 
 const routes: Routes = [
   //New Routing
@@ -66,7 +69,9 @@ const routes: Routes = [
     {path:'Balance',component:BalanceComponent, canActivate:[AuthorizationGuard]},
     {path:'LCompte',component:LettrageComponent, canActivate:[AuthorizationGuard]},
     {path:'CBanque',component:CbanqueComponent, canActivate:[AuthorizationGuard]},
-
+    {path:'centralisation',component:MensueljournalComponent, canActivate:[AuthorizationGuard]},
+    {path:'annuelle',component:AnnuellejournauxComponent, canActivate:[AuthorizationGuard]},
+    {path:'Rcompte',component:RecompteComponent, canActivate:[AuthorizationGuard]},
   ]},
 
   {path:'**',redirectTo:'/'},  {path:'**',component:HomepageComponent}

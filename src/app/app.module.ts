@@ -62,6 +62,9 @@ import {JournauxComponent} from './consultation/journaux/journaux.component';
 import {BalanceComponent} from './consultation/balance/balance.component';
 import { LettrageComponent } from './lettrage/lettrage/lettrage.component';
 import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
+import { MensueljournalComponent } from './centralisation/mensueljournal/mensueljournal.component';
+import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/annuellejournaux.component';
+import { RecompteComponent } from './redresment/recompte/recompte.component';
 @NgModule({
   declarations: [
     AppComponent,CompanyComponent,UserandsmenuComponent,
@@ -70,8 +73,8 @@ import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
     HomepageComponent,PlancomptableComponent,MenuadminComponent,
     ListofphotosComponent,SousmenuComponent,MenuUserTComponent,
     UploadphotosComponent,SaisieComponent,
-    HomepageviewComponent,TypejournalComponent,ComptebilantComponent,
-    LoginandsignuppartialviewComponent,RadicalcompteComponent,
+    HomepageviewComponent,TypejournalComponent,ComptebilantComponent,RecompteComponent,
+    LoginandsignuppartialviewComponent,RadicalcompteComponent,MensueljournalComponent,AnnuellejournauxComponent,
     ForgotpasswordComponent,TypecompteComponent,UserexerciceComponent,CbanqueComponent,
     LogoutpartialviewComponent,JournalbaseComponent,ExerciceComponent,BalanceComponent,LettrageComponent,
       UpdatepasswordComponent,UserandmenuComponent,SocieteComponent,GrandlivreComponent,JournauxComponent
