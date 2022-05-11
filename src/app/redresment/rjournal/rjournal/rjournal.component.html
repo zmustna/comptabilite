@@ -2,7 +2,7 @@
   <!-- Sidebar -->
   <div id="sidebar">
     <header>
-      <a href="#">Saisie</a>
+      <a href="#">Redressement</a>
     </header>
     <ul class="nav">
       <app-sousmenu></app-sousmenu>
@@ -10,42 +10,15 @@
   </div>
   <!-- Content -->
   <div id="content">
-    <div class="container-fluid  mt-2">
-    <div class="form-group row">
-      <div class="col-xs-2">
-        <label for="ex1">col-xs-2</label>
-        <input class="form-control" id="ex1" type="text">
-      </div>
 
-      <div class="col-xs-3">
-        <label for="ex2">col-xs-3</label>
-        <input class="form-control" id="ex2" type="text">
-      </div>
-
-      <div class="col-xs-4">
-        <label for="ex3">col-xs-4</label>
-        <input class="form-control" id="ex3" type="text">
-      </div>
-    </div>
-  </div>
        <div class="container-fluid">
         <div class="container-fluid mt-5"><br>
           <div class="row g-4">
-           <div class="col-md-1">
-            <label for="firstName" class="form-label">&nbsp;&nbsp;&nbsp; Mois &nbsp;&nbsp;&nbsp; </label>
-             <select id="inputState" class="form-control" [style]="{'width':'200px'}"  [(ngModel)]="wmois" (change)="onChangemois($event.target.value)">
-              <option selected value="0">Shoisir le Mois</option>
-              <option *ngFor="let resultState of cities" value={{resultState.code}} class="form-control">
-                  {{resultState.name}}
-              </option>
-            </select>
-            </div>
-           <div class="col-md-1">
-           </div>
+
 
            <div class="col-md-2">
             <label for="firstName" class="form-label">Journal &nbsp;&nbsp;</label>
-            <select id="inputState" class="form-control" [style]="{'width':'300px'}"  [(ngModel)]="wjourn" (change)="onChangejour($event.target.value)">
+            <select id="inputState" class="form-control" [style]="{'width':'300px'}"  [(ngModel)]="wjourn" (change)="onChangejour($event.target.value, 1)">
               <option selected value="0">Choisir le Journal</option>
               <option *ngFor="let resultState of resultJOURNAL" value={{resultState.jL_code}} class="form-control">
                   {{resultState.jl_design}}
@@ -61,50 +34,32 @@
             <button type="button" class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="getmvtdetailfilio()">  Folio   </button>
 
            </div>
-           <div class="col-md-3">
-            <label for="firstName" class="form-label">Compte Libelle</label>
-               <input type="text" class="form-control" [(ngModel)]="comptelibelle" [disabled]="true">
+          </div>
+          <div *ngIf="wccode === 1" class="row g-4">
+           <div class="col-md-2">
+            <label for="firstName" class="form-label">Journal &nbsp;&nbsp;</label>
+            <select id="inputState" class="form-control" [style]="{'width':'300px'}"  [(ngModel)]="wjourn1" (change)="onChangejour($event.target.value, 2)">
+              <option selected value="0">Choisir le Journal</option>
+              <option *ngFor="let resultState of resultJOURNAL" value={{resultState.jL_code}} class="form-control">
+                  {{resultState.jl_design}}
+              </option>
+          </select>
+          </div>
+          <div class="col-md-1"></div>
+           <div class="col-md-1">
+            <label for="firstName" class="form-label">MVT</label>
+               <input type="text" class="form-control"  #wfolio1  [(ngModel)]="wmvtmvt1" [disabled]="true">
            </div>
            <div class="col-md-1">
             <button type="button"  class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="onReset()">  rafraîchir   </button>
 
           </div>
+          <div *ngIf=" wmvtmvt1 >= 1" class="col-md-1">
+            <button type="button"  class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="onSubmit()">  Sauvgarder   </button>
+
           </div>
+
      </div>
-     <div class="container-fluid mt-2">
-          <form class="row g-4"  [formGroup]="angForm" novalidate>
-          <div class="col-md-1">
-            <label for="firstName" class="form-label">Jour</label>
-            <input type="number" [min]="1" [max]="day" formControlName="jour" class="form-control" #wjourelem (change)="onChangeEvent($event)" (keyup.enter)="onKeyDownEvent($event)" >
-          </div>
-          <div class="col-md-1">
-            <label for="firstName" class="form-label">Piece</label>
-            <input type="text" formControlName="piece" class="form-control" #wpieceelem   (keyup.enter)="compteEvent($event)">
-          </div>
-          <div class="col-md-2">
-            <label for="firstName" class="form-label">Compte</label>
-            <input type="text"  formControlName="compte"  class="form-control"  #wcomptee  (keyup.enter)="libelleEvent($event)">
-          </div>
-          <div class="col-md-3">
-            <label for="firstName" class="form-label">Libelle</label>
-            <input type="text"  formControlName="libelle" #wlibellee class="form-control" (keyup.enter)="debitEvent($event)" >
-          </div>
-          <div class="col-md-2">
-            <label for="firstName" class="form-label">Debit</label>
-            <input type="number"  formControlName="debit" #wdebitt class="form-control" (keyup.enter)="creditEvent($event)" (ngModelChange)="valuechangedeb($event)">
-          </div>
-          <div class="col-md-2">
-            <label for="credit" class="form-label">Credit</label>
-            <input type="number" class="form-control" #wcredit formControlName="credit"  (keyup.enter)="sumb($event)" (ngModelChange)="valuechange($event)" >
-          </div>
-
-          <div class="col-md-1">
-            <button type="button" #btnsumb class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="onSubmit()">  Sauvgarder   </button>
-
-          </div>
-        </form>
-     </div>
-
 
          <div class="row mt-3">
           <div class="myfont col-12">
@@ -199,11 +154,11 @@
     <br/> <br/>
     <div class="row">
       <div class="myfont col-12">
-        <p-table #dt33 [columns]="colsfolio" [value]="resulto" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedCompte" dataKey="jl_code" (onRowSelect)="selectrowchoosefolio($event)">
+        <p-table #dt330 [columns]="colsfolio" [value]="resulto" styleClass="p-datatable-sm p-datatable-gridlines" [scrollable]="true" scrollHeight="500px"  class="myfont" selectionMode="single" [(selection)]="selectedCompte" dataKey="mv_folio" (onRowSelect)="selectrowchoosefolio($event)">
             <ng-template pTemplate="caption">
                 <div style="text-align: left">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="20" placeholder="Rechercher & Selectionner"  [(ngModel)]="filterFromUrl" (input)="dt33.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    <input type="text" pInputText size="20" placeholder="Rechercher & Selectionner"  [(ngModel)]="filterFromUrl" (input)="dt330.filterGlobal($event.target.value, 'contains')" style="width:auto">
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -218,12 +173,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData">
-                    <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
-                      <span *ngIf="col.header =='Mois'">{{rowData[col.field]}}</span>
-                      <span *ngIf="col.header =='Journal'">{{rowData[col.field]}}</span>
-                      <span *ngIf="col.header =='Folio'">{{rowData[col.field]}}</span>
+                  <td *ngFor="let col of columns" [ngStyle]="{'display': col.display, 'width': col.width, 'text-align': col.align, 'font-size': col.size}">
+                    <span *ngIf="col.header =='Mois'">{{rowData[col.field]}}</span>
+                    <span *ngIf="col.header =='Journal'">{{rowData[col.field]}}</span>
+                    <span *ngIf="col.header =='Folio'">{{rowData[col.field]}}</span>
 
-                    </td>
+                  </td>
                 </tr>
             </ng-template>
 

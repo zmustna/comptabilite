@@ -36,6 +36,8 @@ import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
 import { MensueljournalComponent } from './centralisation/mensueljournal/mensueljournal.component';
 import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/annuellejournaux.component';
 import { RecompteComponent } from './redresment/recompte/recompte.component';
+import { RjournalComponent } from './redresment/rjournal/rjournal/rjournal.component';
+import { RmoisComponent } from './redresment/rmois/rmois.component';
 
 const routes: Routes = [
   //New Routing
@@ -72,6 +74,8 @@ const routes: Routes = [
     {path:'centralisation',component:MensueljournalComponent, canActivate:[AuthorizationGuard]},
     {path:'annuelle',component:AnnuellejournauxComponent, canActivate:[AuthorizationGuard]},
     {path:'Rcompte',component:RecompteComponent, canActivate:[AuthorizationGuard]},
+    {path:'Rjournal',component:RjournalComponent, canActivate:[AuthorizationGuard]},
+    {path:'Rjournalmois',component:RmoisComponent, canActivate:[AuthorizationGuard]},
   ]},
 
   {path:'**',redirectTo:'/'},  {path:'**',component:HomepageComponent}

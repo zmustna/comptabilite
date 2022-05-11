@@ -65,6 +65,8 @@ import { CbanqueComponent } from './Saisieglobal/cbanquemvt/cbanque.component';
 import { MensueljournalComponent } from './centralisation/mensueljournal/mensueljournal.component';
 import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/annuellejournaux.component';
 import { RecompteComponent } from './redresment/recompte/recompte.component';
+import { RjournalComponent } from './redresment/rjournal/rjournal/rjournal.component';
+import { RmoisComponent } from './redresment/rmois/rmois.component';
 @NgModule({
   declarations: [
     AppComponent,CompanyComponent,UserandsmenuComponent,
@@ -74,6 +76,7 @@ import { RecompteComponent } from './redresment/recompte/recompte.component';
     ListofphotosComponent,SousmenuComponent,MenuUserTComponent,
     UploadphotosComponent,SaisieComponent,
     HomepageviewComponent,TypejournalComponent,ComptebilantComponent,RecompteComponent,
+    RjournalComponent,RmoisComponent,
     LoginandsignuppartialviewComponent,RadicalcompteComponent,MensueljournalComponent,AnnuellejournauxComponent,
     ForgotpasswordComponent,TypecompteComponent,UserexerciceComponent,CbanqueComponent,
     LogoutpartialviewComponent,JournalbaseComponent,ExerciceComponent,BalanceComponent,LettrageComponent,
