@@ -7,13 +7,14 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { SelectItem } from "primeng/api";
 import { Table } from "primeng/table";
+import { allowedNodeEnvironmentFlags } from "process";
 import { UserGlobalService } from "src/app/AppServices/ServiceGlobal/UserGlobalService";
 import { mvtdetail } from "src/app/Models/base/mvtdetail";
 import { companyUser } from "src/app/Models/companyUser";
 import { LoginandsignuppartialviewComponent } from "src/app/User/loginandsignuppartialview/loginandsignuppartialview.component";
 import { LogoutpartialviewComponent } from "src/app/User/logoutpartialview/logoutpartialview.component";
-import { CompteComptablex } from "../../../Models/base/compteComptablex";
-import { journal } from '../../../Models/base/journal';
+import { CompteComptablex } from "../../Models/base/compteComptablex";
+import { journal } from '../../Models/base/journal';
 interface City {
   name: string,
   code: string
@@ -23,12 +24,13 @@ interface Journ {
   jL_code: number
 }
 @Component({
-  selector: "app-saisie",
-  templateUrl: "./saisie.component.html",
-  styleUrls: ["./saisie.component.scss"]
+  selector: 'app-rjourpiece',
+  templateUrl: './rjourpiece.component.html',
+  styleUrls: ['./rjourpiece.component.css']
 })
+export class RjourpieceComponent implements OnInit {
 
-export class SaisieComponent implements OnInit {
+
   title: string = "Saisie Des Eritures Comptables Exercice";
   customIcon="fa fa-search"; day: number=0;
   exform: FormGroup = new FormGroup({
@@ -50,6 +52,8 @@ export class SaisieComponent implements OnInit {
   resultt: any[];
   resulto: any[];
   displayfolio: boolean;
+  journn1: any;
+  moiss1: number;
 
   clicksub(){
   //  console.log(this.exform.value);
@@ -67,13 +71,7 @@ export class SaisieComponent implements OnInit {
   get LibelleC() { return this.exform.get('LibelleC'); }
   get debit() { return this.exform.get('debit'); }
   get credit() { return this.exform.get('credit'); }
-  colsfolio = [
-    { field: "mv_mmc", header: "Mois",  width: "10%", display: "table-cell",  align: "center", size: "0.8em" },
-    { field: "jl_code", header: "jlcode",  display: "none",  align: "left", size: "0.8em" },
-    { field: "client", header: "Journal",  width: "80%", display: "table-cell",  align: "left", size: "0.8em" },
-    { field: "mv_folio", header: "Folio",  width: "10%", display: "table-cell",  align: "right", size: "0.8em"  },
 
-  ];
   cols = [
     { field: "mV_jopt", header: "Jour",  width: "5%", display: "table-cell",  align: "center", size: "0.8em" },
     { field: "mv_piece", header: "Piece",  width: "6%", display: "table-cell",  align: "right", size: "0.8em" },
@@ -94,16 +92,23 @@ export class SaisieComponent implements OnInit {
     { field: "annee", header: "Action",  display: "none",  align: "left", size: "0.8em" },
     { field: "FACTURE", header: "Action",  display: "none",  align: "left", size: "0.8em" },
     { field: "mv_datec", header: "Action",  display: "none",  align: "left", size: "0.8em" },
-    { field: "", header: "Supprimer",  width: "8%", display: "table-cell",  align: "center", size: "0.8em" },
+    { field: "mv_aac", header: "Selection",  width: "8%", display: "table-cell",  align: "center", size: "0.8em" },
   ];
   colsusercompany = [
     { field: 'compteId', header: 'Compte',  width: '30%', display: 'table-cell',  align: 'left', size: '0.8em' },
     { field: 'libelle', header: 'Libelle', width: '70%', display: 'table-cell',  align: 'left', size: '0.8em'},
   ];
+  colsfolio = [
+    { field: "mv_mmc", header: "Mois",  width: "10%", display: "table-cell",  align: "center", size: "0.8em" },
+    { field: "jl_code", header: "jlcode",  display: "none",  align: "left", size: "0.8em" },
+    { field: "client", header: "Journal",  width: "80%", display: "table-cell",  align: "left", size: "0.8em" },
+    { field: "mv_folio", header: "Folio",  width: "10%", display: "table-cell",  align: "right", size: "0.8em"  },
 
+  ];
   selectedCompte:CompteComptablex;
   @ViewChild("wpieceelem") wpieceelement: ElementRef;
   @ViewChild("wfolio") wfolioelement: ElementRef;
+  @ViewChild("wfolio1") wfolio1element: ElementRef;
   @ViewChild("wjourelem") wjourelemlement: ElementRef;
   @ViewChild("wlibelle") wlibellelement: ElementRef;
   @ViewChild("wdebitt") wdebitelement: ElementRef;
@@ -117,10 +122,10 @@ export class SaisieComponent implements OnInit {
   selectedCar1: companyUser;displaycompte:boolean=false; codeid: number = 0;codeCompany:number=0;ifresult:number=0;
     angForm: FormGroup; userDetails; myFile: any;loading: boolean; message: string; result: any[]=[]; resultx: string[] = [];
   url: string; username: any;standarCompany: any;resulttele: any; progress: number;resultJOURNAL:any[]=[];resultCompany:any[]=[];
-  wjour:number;wpiece:number=0;wcompte:string="";wlibelle:string="";wdebit:number;wcredit:number;wmvtmvt:number;
-display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;
-@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;
-filterFromUrl:string="";comptelibelle:string="";
+  wjour:number;wpiece:number=0;wcompte:string="";wlibelle:string="";wdebit:number;wcredit:number;wmvtmvt:number;wmvtmvt1:number;
+display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;wccode:number=0;wmois1:number=0;
+@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;wjourn1:number=0;
+filterFromUrl:string="";comptelibelle:string="";wjourpiece:string='Jour';
 
   constructor(private http: HttpClient, private snackbar:MatSnackBar, private Spinner: NgxSpinnerService, private fb: FormBuilder,  private router: Router, private service: UserGlobalService, private toastr: ToastrService) {
     this.setMenu(); this.createForm();this.createmonth();
@@ -239,30 +244,7 @@ this.Spinner.show();
    // this.nameElement.nativeElement.focus();
   }
   deleteid(e) {
-    let res = new Array<any>();
-    res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
-    res.push('folio');  res.push(this.wmvtmvt);
-    res.push('journ');  res.push(this.wjourn); res.push('ligne');  res.push(e.mv_lig);
-    res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
-    this.resultx = []; this.resultx = res;
-    this.Spinner.show(); this.result = [];
-      this.service.getList("/fmvt/Getdeleteid", this.resultx)
-    .subscribe(
-      (data:any) => {
-        this.result = [];
-        this.result=data;
-        this.wjourelemlement.nativeElement.focus();
-        this.Spinner.hide();
-      },
-      (err:any)=>{
-        this.Spinner.hide();
-        this.snackbar.open('You are not Authorized Person to see Plan!','?', {
-          duration:4000,
-          horizontalPosition:'center',
-          verticalPosition:'top'
-        })
-      }
-    )
+alert(JSON.stringify(e));
   }
   imprimer() {
     let res = new Array<any>(); res.push("useremail"); res.push(localStorage.getItem("useremail"));
@@ -305,43 +287,71 @@ this.displaycompte = true;
   onRowUnselect(event) {
 
   }
-  onChangemois(event) {
-    this.moiss =  parseInt(event);
-    let year = parseInt( localStorage.getItem("exercicecompany"));
-    let month = this.moiss;
-    this.day = new Date(year, month, 0).getDate();
-    if(this.journn > 0) this.getmvtdetail();
-}
-onChangejour(event) {
- this.journn= event;
+  changeGender(e) {
+    this.onReset();
+    if(e === 0) this.wjourpiece = 'Jour';if(e === 1) this.wjourpiece = 'Piece';
+    this.wpieceelement.nativeElement.focus();
 
-if(this.moiss > 0) this.getmvtdetail();
+}
+onChangemois1(event) {
+  this.moiss1 =  parseInt(event);
+
+}
+onChangejour(event, b) {
+  if(b === 1)
+  {
+    this.journn= event;
+  }
+  if(b === 2)
+  {
+    this.journn1= event; this.getmvtdetail();
+  }
+}
+onChangecheck(e){
+  let year = parseInt( localStorage.getItem("exercicecompany"));
+  for (var t = 0; t < this.result.length; t++) {
+    if (this.result[t]["mv_lig"] === e.mv_lig && this.result[t]["mv_aac"] === year)
+    {
+      this.result[t]["mv_aac"] = 0;
+    }
+    else
+    {
+        if (this.result[t]["mv_lig"] === e.mv_lig && this.result[t]["mv_aac"] === 0)
+      {
+        this.result[t]["mv_aac"] = year;
+      }
+  }
+
+}
+
 }
 onReset(){
-  this.wmois = 0; this.moiss=0; this.wjour = 0; this.journn=0;this.wjourn=0; this.result = []; this.angForm.reset(); this.wligne = 0;this.wfolioelement.nativeElement.value = ' ';
+  this.wmvtmvt=0;this.wmvtmvt1 =0;this.wmois=0;this.wmois1=0;this.moiss1 = 0; this.moiss = 0;
+  this.wmois = 0; this.moiss=0; this.wjour = 0; this.journn=0;this.wjourn=0; this.wjourn1=0;this.result = []; this.angForm.reset(); this.wligne = 0;
+  this.wccode=0;
 }
   getmvtdetail(){
     let res = new Array<any>();
     res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
-    res.push('mois');  res.push(this.moiss);
-    res.push('journ');  res.push(this.journn);
+    res.push('mois');  res.push(this.wmois);
+    res.push('journ');  res.push(this.journn1);
     res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
     this.resultx = []; this.resultx = res;
-    this.Spinner.show(); this.result = [];
+    this.Spinner.show(); this.resultt = [];
       this.service.getList("/fmvt/GetAllfolio", this.resultx)
     .subscribe(
       (data:any) => {
         this.resultt = [];
         this.resultt=data;
+      //  alert(this.journn1 + "  " + JSON.stringify(data))
         if (this.resultt.length > 0)
         {
-          this.wmvtmvt = this.resultt[0]['mv_folio'] + 1;
+          this.wmvtmvt1 = this.resultt[0]['mv_folio'] + 1;
          // this.getmvtdetailfolio();
 
         }else{
-          this.wmvtmvt = 1;
+          this.wmvtmvt1 = 1;
         }
-        this.wjourelemlement.nativeElement.focus();
         this.Spinner.hide();
       },
       (err:any)=>{
@@ -383,19 +393,16 @@ onReset(){
   getmvtdetailfolio(){
     let res = new Array<any>();
     res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
-    res.push('mois');  res.push(this.moiss);
-    res.push('journ');  res.push(this.journn);
-    res.push('id');  res.push(this.wmvtmvt);
+    res.push('id');  res.push(this.wmvtmvt); res.push('iid');  res.push(this.wjourpiece);
     res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
     this.resultx = []; this.resultx = res;
     this.Spinner.show();
-      this.service.getList("/fmvt/GetAllfoliodet", this.resultx)
+      this.service.getList("/fmvt/GetAllpiece", this.resultx)
     .subscribe(
       (data:any) => {
         this.result = [];
         this.result=data;
 
-        this.wjourelemlement.nativeElement.focus();
         this.Spinner.hide();
       },
       (err:any)=>{
@@ -415,17 +422,16 @@ onReset(){
     this.display=true;
   }
   selectrowchoosefolio(e){
-    this.wmvtmvt = e.data.mv_folio;
-    this.journn = parseInt(e.data.jl_code);
-    this.wjourn = e.data.jl_code;
-  this.moiss = e.data.mv_mmc;
-  this.wmois = e.data.mv_mmc;
-  let month = this.moiss;
-  let year = parseInt( localStorage.getItem("exercicecompany"));
-  this.day = new Date(year, month, 0).getDate();
-  console.log(this.day);
-    this.getmvtdetailfolio();
-    this.displayfolio = false;
+       this.wmvtmvt = e.data.mv_folio;
+       this.journn = parseInt(e.data.jl_code);
+       this.wjourn = e.data.jl_code;
+       this.moiss = e.data.mv_mmc;
+       this.wmois = e.data.mv_mmc;
+       let month = this.moiss;
+       let year = parseInt( localStorage.getItem("exercicecompany"));
+       this.day = new Date(year, month, 0).getDate();
+       this.getmvtdetailfolio();
+       this.displayfolio = false; this.wccode=1;
      }
   selectrowchoose2(e){
 
@@ -449,42 +455,27 @@ onReset(){
   }
   onSubmit() {
     this.Spinner.show();
-     let fiile = new mvtdetail(); let i = 0;
-      fiile.jl_code = parseInt(this.journn.toString());
-     fiile.companyId =parseInt( localStorage.getItem("companycode"));
-      fiile.mv_libop =  this.angForm.value.libelle;
-      fiile.mV_jopt =  parseInt(this.angForm.value.jour);
-      fiile.mv_compt = this.angForm.value.compte;
-      fiile.mv_piece = parseInt(this.angForm.value.piece);
-      fiile.mv_mmc = this.moiss;
-      fiile.mv_folio = this.wmvtmvt;
-      fiile.client=this.comptelibelle;
-      fiile.mv_montd =  parseFloat(this.angForm.value.debit);
-      fiile.mv_littrage = 0;
-      fiile.annee = parseInt( localStorage.getItem("exercicecompany"));
-      fiile.mv_montc = parseFloat(this.angForm.value.credit);
-      fiile.mv_aac = parseInt( localStorage.getItem("exercicecompany"));
-      fiile.mV_UTILIS =  localStorage.getItem("useremail");
-      fiile.mv_date = new Date(fiile.mv_aac, fiile.mv_mmc, fiile.mV_jopt, 0, 0, 0, 0);
-      fiile.mv_lig = this.wligne;
-      if(Number.isInteger(fiile.mv_montd) === false) fiile.mv_montd = 0;
-      if(Number.isInteger(fiile.mv_montc) === false) fiile.mv_montc = 0;
-      //console.log(JSON.stringify(fiile));
-      this.service.ExecutePost("/fmvt/Update", fiile).subscribe(() => {
-      if (i === 0) {
-        this.wligne = 0; this.angForm.reset();this.comptelibelle = "";
-        this.getmvtdetailfolio();
-        this.Spinner.hide();
+ let res = new Array<any>();
+ res.push('wfoliofrom');  res.push(this.wmvtmvt);
+res.push('company'); res.push( parseInt( localStorage.getItem("companycode")));
+res.push('wyear'); res.push(parseInt( localStorage.getItem("exercicecompany")));
+ this.resultx = []; this.resultx = res;
+ this.service.getList("/fmvt/Getupdatemois", this.resultx)
+ .subscribe(
+  (data:any) => {
+   this.onReset();
+    this.Spinner.hide();
+  },
+  (err:any)=>{
 
-      } else {
-      }
-
-    }, err =>{
-      console.error(err);
-      this.Spinner.hide();
-    }
-
-    );
+    this.Spinner.hide();
+    this.snackbar.open('You are not Authorized Person to see Plan!','?', {
+      duration:4000,
+      horizontalPosition:'center',
+      verticalPosition:'top'
+    })
+  }
+)
 
   }
   getjournal(){
@@ -533,7 +524,8 @@ onReset(){
     )
   }
   setMenu(){
-    localStorage.setItem("sousmenu","3");
+    localStorage.setItem("sousmenu","7");
+
   }
     ngOnInit() {
       this.standarCompany = localStorage.getItem("CompanyGlobalId");
@@ -546,8 +538,6 @@ onReset(){
       }
       Promise.resolve("done")
         .then((val) => {this.setMenu()})
-         .then((val) => { this.getjournal()})
-         .then((val) => { this.getcomptecomptable()})
         .catch((err) => console.error(err));
 
   }

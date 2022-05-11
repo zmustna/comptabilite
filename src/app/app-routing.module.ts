@@ -38,6 +38,7 @@ import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/ann
 import { RecompteComponent } from './redresment/recompte/recompte.component';
 import { RjournalComponent } from './redresment/rjournal/rjournal/rjournal.component';
 import { RmoisComponent } from './redresment/rmois/rmois.component';
+import { RjourpieceComponent } from './redresment/rjourpiece/rjourpiece.component';
 
 const routes: Routes = [
   //New Routing
@@ -76,6 +77,7 @@ const routes: Routes = [
     {path:'Rcompte',component:RecompteComponent, canActivate:[AuthorizationGuard]},
     {path:'Rjournal',component:RjournalComponent, canActivate:[AuthorizationGuard]},
     {path:'Rjournalmois',component:RmoisComponent, canActivate:[AuthorizationGuard]},
+    {path:'Rjourpiece',component:RjourpieceComponent, canActivate:[AuthorizationGuard]},
   ]},
 
   {path:'**',redirectTo:'/'},  {path:'**',component:HomepageComponent}

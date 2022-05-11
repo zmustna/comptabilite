@@ -67,6 +67,7 @@ import { AnnuellejournauxComponent } from './centralisation/annuellejournaux/ann
 import { RecompteComponent } from './redresment/recompte/recompte.component';
 import { RjournalComponent } from './redresment/rjournal/rjournal/rjournal.component';
 import { RmoisComponent } from './redresment/rmois/rmois.component';
+import { RjourpieceComponent } from './redresment/rjourpiece/rjourpiece.component';
 @NgModule({
   declarations: [
     AppComponent,CompanyComponent,UserandsmenuComponent,
@@ -76,7 +77,7 @@ import { RmoisComponent } from './redresment/rmois/rmois.component';
     ListofphotosComponent,SousmenuComponent,MenuUserTComponent,
     UploadphotosComponent,SaisieComponent,
     HomepageviewComponent,TypejournalComponent,ComptebilantComponent,RecompteComponent,
-    RjournalComponent,RmoisComponent,
+    RjournalComponent,RmoisComponent,RjourpieceComponent,
     LoginandsignuppartialviewComponent,RadicalcompteComponent,MensueljournalComponent,AnnuellejournauxComponent,
     ForgotpasswordComponent,TypecompteComponent,UserexerciceComponent,CbanqueComponent,
     LogoutpartialviewComponent,JournalbaseComponent,ExerciceComponent,BalanceComponent,LettrageComponent,
