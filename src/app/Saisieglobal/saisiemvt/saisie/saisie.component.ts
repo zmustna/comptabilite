@@ -1,4 +1,5 @@
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from "@angular/common/http";
+import { ThrowStmt } from "@angular/compiler";
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 import { MatSnackBar } from "@angular/material/snack-bar";
@@ -50,6 +51,8 @@ export class SaisieComponent implements OnInit {
   resultt: any[];
   resulto: any[];
   displayfolio: boolean;
+  wlettrage: any;
+  worgine: number;
 
   clicksub(){
   //  console.log(this.exform.value);
@@ -118,9 +121,9 @@ export class SaisieComponent implements OnInit {
     angForm: FormGroup; userDetails; myFile: any;loading: boolean; message: string; result: any[]=[]; resultx: string[] = [];
   url: string; username: any;standarCompany: any;resulttele: any; progress: number;resultJOURNAL:any[]=[];resultCompany:any[]=[];
   wjour:number;wpiece:number=0;wcompte:string="";wlibelle:string="";wdebit:number;wcredit:number;wmvtmvt:number;
-display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;
-@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;
-filterFromUrl:string="";comptelibelle:string="";
+display:boolean=false;moiss:number=0;journn:number=0;wmois:number=0;mycheck:boolean=false;
+@ViewChild("dt33") public table: Table;wligne:number=0;wjourn:number=0;mycode:number=0;
+filterFromUrl:string="";comptelibelle:string="";comptelibelle2:string="";compte2:string="";
 
   constructor(private http: HttpClient, private snackbar:MatSnackBar, private Spinner: NgxSpinnerService, private fb: FormBuilder,  private router: Router, private service: UserGlobalService, private toastr: ToastrService) {
     this.setMenu(); this.createForm();this.createmonth();
@@ -175,10 +178,12 @@ filterFromUrl:string="";comptelibelle:string="";
     creditEvent(event: any){
       this.wcreditelement.nativeElement.focus();
       }
-  libelleEvent(event: any){
-
+  libelleEvent(event: any, b){
+ if(b === 0) this.worgine = 0;
+ if(b === 1) this.worgine = 1;
    // console.log(this.angForm.value.compte);
-    this.filterFromUrl = this.angForm.value.compte;
+   if (b === 0)  this.filterFromUrl = this.angForm.value.compte;
+   if (b === 1)  this.filterFromUrl = this.compte2;
     let wcompte=this.filterFromUrl.length;
    // console.log("this zalal : " + wcompte);
        if(wcompte < 10){
@@ -187,23 +192,31 @@ filterFromUrl:string="";comptelibelle:string="";
             this.filterFromUrl = this.filterFromUrl + "0";
           }
        }
+       if(b === 0){
        this.angForm.setValue({ jour: this.angForm.value.jour,
         piece:this.angForm.value.piece,compte: this.filterFromUrl,
         libelle:this.angForm.value.libelle,
         debit:this.angForm.value.debit,credit:this.angForm.value.credit
        });
+      }
   let filtered = roleParam => this.resultCompany.some( ({compteId}) => compteId == roleParam)
 let gg = this.resultCompany.filter( ({compteId}) => compteId == this.filterFromUrl);
 
 if (filtered(this.filterFromUrl)){
+  if(b === 0){
   this.comptelibelle = gg[0]["libelle"];
-  this.wlibelleelement.nativeElement.focus();
+  this.wlibelleelement.nativeElement.focus(); this.mycode = 1;
+  }
+  if (b === 1){
+    this.comptelibelle2 = gg[0]["libelle"];
+  }
 }else{
   this.display = true;
 
 }
 
     }
+
  createmonth(){
   this.cities = [
     {name: 'Janvier', code: 1},
@@ -318,6 +331,7 @@ onChangejour(event) {
 if(this.moiss > 0) this.getmvtdetail();
 }
 onReset(){
+  this.mycode = 0;
   this.wmois = 0; this.moiss=0; this.wjour = 0; this.journn=0;this.wjourn=0; this.result = []; this.angForm.reset(); this.wligne = 0;this.wfolioelement.nativeElement.value = ' ';
 }
   getmvtdetail(){
@@ -428,21 +442,37 @@ onReset(){
     this.displayfolio = false;
      }
   selectrowchoose2(e){
-
+if(this.worgine === 0){
     this.angForm.setValue({ jour: this.angForm.value.jour,
                          piece:this.angForm.value.piece,compte: e.data.compteId,
                          libelle:this.angForm.value.libelle,
                          debit:this.angForm.value.debit,credit:this.angForm.value.credit
                         });
-    this.comptelibelle= e.data.libelle;
+    this.comptelibelle= e.data.libelle;this.mycode =1;
     this.wlibelleelement.nativeElement.focus();
+                      }
+                      if(this.worgine === 1){
+                        this.comptelibelle2= e.data.libelle;
+                        this.compte2 = e.data.compteId;
+                                          }
     this.display = false;
   }
   selectrow(e) {
-    this.wjour = e.data.mvtJour; this.wpiece = e.data.mvtPiece;this.wcompte = e.data.compteId;
-    this.wlibelle = e.data.mvtLibelle; this.wdebit = e.data.mvtDebit;this.wcredit = e.data.mvtCredit;
-    this.codeid=e.data.mvtId;
-    this.nameElement.nativeElement.focus();
+    this.angForm.setValue({ jour: e.data.mV_jopt,
+      piece:e.data.mv_piece,compte: e.data.mv_compt,
+      libelle:e.data.mv_libop,
+      debit:e.data.mv_montd,credit:e.data.mv_montc
+     });
+    this.wlettrage = e.data.mv_littrage; this.mycode = 1;
+    this.codeid=e.data.mv_lig;this.comptelibelle= e.data.client;
+
+    this.wjourelemlement.nativeElement.focus();
+
+  }
+  onChangecheck(e){
+    if(this.mycheck === false){
+      this.compte2 = ""; this.comptelibelle2 ="";
+    }
   }
   onRowEditCancel(rowData){
 
@@ -460,21 +490,85 @@ onReset(){
       fiile.mv_folio = this.wmvtmvt;
       fiile.client=this.comptelibelle;
       fiile.mv_montd =  parseFloat(this.angForm.value.debit);
-      fiile.mv_littrage = 0;
+
+      if(this.codeid === 0){
+        fiile.mv_littrage = 0;
+
+      }else{
+       fiile.mv_lig = this.codeid;
+
+       fiile.mv_littrage=this.wlettrage;
+      }
+
       fiile.annee = parseInt( localStorage.getItem("exercicecompany"));
       fiile.mv_montc = parseFloat(this.angForm.value.credit);
       fiile.mv_aac = parseInt( localStorage.getItem("exercicecompany"));
       fiile.mV_UTILIS =  localStorage.getItem("useremail");
       fiile.mv_date = new Date(fiile.mv_aac, fiile.mv_mmc, fiile.mV_jopt, 0, 0, 0, 0);
-      fiile.mv_lig = this.wligne;
+      fiile.mv_lig = this.codeid;
       if(Number.isInteger(fiile.mv_montd) === false) fiile.mv_montd = 0;
       if(Number.isInteger(fiile.mv_montc) === false) fiile.mv_montc = 0;
       //console.log(JSON.stringify(fiile));
       this.service.ExecutePost("/fmvt/Update", fiile).subscribe(() => {
       if (i === 0) {
-        this.wligne = 0; this.angForm.reset();this.comptelibelle = "";
-        this.getmvtdetailfolio();
-        this.Spinner.hide();
+        if(this.mycheck === true){
+          this.onSubmit2();
+
+        }else{
+          this.wligne = 0; this.angForm.reset();this.comptelibelle = "";this.codeid = 0;this.wlettrage='';this.mycode =0;
+          this.getmvtdetailfolio();
+          this.Spinner.hide();
+        }
+
+
+      } else {
+      }
+
+    }, err =>{
+      console.error(err);
+      this.Spinner.hide();
+    }
+
+    );
+
+  }
+  onSubmit2() {
+    this.Spinner.show();
+     let fiile = new mvtdetail(); let i = 0;
+      fiile.jl_code = parseInt(this.journn.toString());
+     fiile.companyId =parseInt( localStorage.getItem("companycode"));
+      fiile.mv_libop =  this.angForm.value.libelle;
+      fiile.mV_jopt =  parseInt(this.angForm.value.jour);
+      fiile.mv_compt = this.compte2;
+      fiile.mv_piece = parseInt(this.angForm.value.piece);
+      fiile.mv_mmc = this.moiss;
+      fiile.mv_folio = this.wmvtmvt;
+      fiile.client=this.comptelibelle2;
+      fiile.mv_montd =  parseFloat(this.angForm.value.credit);
+
+      if(this.codeid === 0){
+        fiile.mv_littrage = 0;
+
+      }else{
+       fiile.mv_lig = this.codeid;
+
+       fiile.mv_littrage=this.wlettrage;
+      }
+
+      fiile.annee = parseInt( localStorage.getItem("exercicecompany"));
+      fiile.mv_montc = parseFloat(this.angForm.value.debit);
+      fiile.mv_aac = parseInt( localStorage.getItem("exercicecompany"));
+      fiile.mV_UTILIS =  localStorage.getItem("useremail");
+      fiile.mv_date = new Date(fiile.mv_aac, fiile.mv_mmc, fiile.mV_jopt, 0, 0, 0, 0);
+      fiile.mv_lig = this.codeid;
+      if(Number.isInteger(fiile.mv_montd) === false) fiile.mv_montd = 0;
+      if(Number.isInteger(fiile.mv_montc) === false) fiile.mv_montc = 0;
+      //console.log(JSON.stringify(fiile));
+      this.service.ExecutePost("/fmvt/Update", fiile).subscribe(() => {
+      if (i === 0) {
+          this.wligne = 0; this.angForm.reset();this.comptelibelle = "";this.codeid = 0;this.wlettrage='';this.mycode =0;
+          this.getmvtdetailfolio();
+          this.Spinner.hide();
 
       } else {
       }

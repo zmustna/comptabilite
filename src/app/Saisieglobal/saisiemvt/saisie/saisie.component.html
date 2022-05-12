@@ -11,8 +11,7 @@
   <!-- Content -->
   <div id="content">
          <div class="container-fluid">
-        <div class="container-fluid mt-2">
-          <div class="row g-4">
+          <div class="row">
            <div class="col-md-1">
             <label for="firstName" class="form-label">&nbsp;&nbsp;&nbsp; Mois &nbsp;&nbsp;&nbsp; </label>
              <select id="inputState" class="form-control" [style]="{'width':'200px'}"  [(ngModel)]="wmois" (change)="onChangemois($event.target.value)">
@@ -43,16 +42,32 @@
             <button type="button" class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="getmvtdetailfilio()">  Folio   </button>
 
            </div>
-           <div class="col-md-3">
-            <label for="firstName" class="form-label">Compte Libelle</label>
-               <input type="text" class="form-control" [(ngModel)]="comptelibelle" [disabled]="true">
-           </div>
+
            <div class="col-md-1">
             <button type="button"  class="ml-1 pl-3 btn btn-success" style="margin-top: 30px;" (click)="onReset()">  rafraîchir   </button>
 
           </div>
+          <div *ngIf="wmvtmvt >= 1" class="col-md-2"><br><br>
+            <input type="checkbox" [(ngModel)]="mycheck"  (change)="onChangecheck($event.target.value)">
+            <label for="vehicle1">&nbsp; Contre Partie</label><br>
+
           </div>
-     </div>
+
+          </div>
+          <div  *ngIf="mycheck === true"  class="row">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-4">
+                <label for="firstName" class="form-label">Compte</label>
+                <input type="text"   class="form-control" [(ngModel)]="compte2"  (keyup.enter)="libelleEvent($event, 1)">
+              </div>
+              <div class="col-md-7">
+                <label for="firstName" class="form-label">Libelle</label>
+                <input type="text"  [(ngModel)]="comptelibelle2" class="form-control" [disabled]="true" >
+              </div>
+            </div>
+          </div>
+
      <div class="container-fluid mt-2">
           <form class="row g-4"  [formGroup]="angForm" novalidate>
           <div class="col-md-1">
@@ -65,7 +80,7 @@
           </div>
           <div class="col-md-2">
             <label for="firstName" class="form-label">Compte</label>
-            <input type="text"  formControlName="compte"  class="form-control"  #wcomptee  (keyup.enter)="libelleEvent($event)">
+            <input type="text"  formControlName="compte"  class="form-control"  #wcomptee  (keyup.enter)="libelleEvent($event, 0)">
           </div>
           <div class="col-md-3">
             <label for="firstName" class="form-label">Libelle</label>
@@ -129,16 +144,20 @@
           </div>
 
       </div>
+
+      <div *ngIf= "mycode === 1" class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+          <label for="firstName" class="form-label">Compte Libelle</label>
+             <input type="text" class="form-control" [(ngModel)]="comptelibelle" [disabled]="true">
+         </div>
       </div>
   </div>
 
   <!--<p>Form value: {{ angForm.value | json }}</p>
   <p>Form status: {{ angForm.status | json }}</p>-->
 </div>
-<div class="bg1"></div><br>
-  <div class="container">
 
-  </div>
   <p-sidebar [(visible)]="display" styleClass="p-sidebar-md" position="left">
     <br/> <br/>
     <div class="row">
